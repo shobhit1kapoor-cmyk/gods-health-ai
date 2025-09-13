@@ -1,12 +1,9 @@
 [build]
-  # Directory to change to before starting a build
-  base = "frontend/"
-  
   # Directory that contains the deploy-ready HTML files and assets
-  publish = "build/"
+  publish = "frontend/build/"
   
   # Default build command
-  command = "npm run build"
+  command = "cd frontend && npm run build"
 
 # Redirect rules for React Router
 [[redirects]]
