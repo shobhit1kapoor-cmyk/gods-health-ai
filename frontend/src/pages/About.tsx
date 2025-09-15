@@ -9,7 +9,6 @@ import {
   Target,
   Zap,
   CheckCircle,
-  Star,
   TrendingUp,
   Activity,
   Stethoscope,

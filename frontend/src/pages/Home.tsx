@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Heart, Brain, Activity, Shield, Zap, Users, Award, TrendingUp, CheckCircle, Star, Clock } from 'lucide-react';
+import { ArrowRight, Heart, Brain, Activity, Shield, Zap, Users, TrendingUp, CheckCircle } from 'lucide-react';
 
 const Home: React.FC = () => {
   const stats = [

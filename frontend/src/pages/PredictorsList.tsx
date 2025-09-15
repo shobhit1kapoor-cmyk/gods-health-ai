@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -35,7 +35,7 @@ const PredictorsList: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get('category') || 'all');
   const [filteredPredictors, setFilteredPredictors] = useState<Predictor[]>([]);
 
-  const predictors: Predictor[] = [
+  const predictors: Predictor[] = useMemo(() => [
     // Disease Risk & Diagnosis Predictors
     {
       id: 'heart_disease',
@@ -267,7 +267,7 @@ const PredictorsList: React.FC = () => {
       estimatedTime: '8-10 min',
       accuracy: '85%'
     }
-  ];
+  ], []);
 
   const categories = [
     { id: 'all', name: 'All Predictors', count: predictors.length },
@@ -301,7 +301,7 @@ const PredictorsList: React.FC = () => {
     }
 
     setFilteredPredictors(filtered);
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, predictors]);
 
   const featuredPredictors = predictors.filter(p => p.featured);
 
