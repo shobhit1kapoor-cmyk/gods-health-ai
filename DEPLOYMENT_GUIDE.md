@@ -78,9 +78,29 @@
 
 ## 🚨 Important Notes
 
-1. **CORS Configuration:** Make sure your backend allows requests from your Netlify domain
+1. **CORS Configuration:** Backend is configured to allow requests from GitHub Pages and Netlify
 2. **HTTPS:** Both frontend and backend should use HTTPS in production
 3. **Environment Variables:** Never commit sensitive data to Git
+4. **GitHub Pages Issue:** The GitHub Pages deployment shows "Failed to fetch" because the backend isn't deployed yet
+
+## 🔧 Fixing GitHub Pages "Failed to fetch" Error
+
+The GitHub Pages version at `https://shobhit1kapoor-cmyk.github.io/gods-health-ai/` shows errors because:
+1. The backend is not deployed to a production server
+2. The frontend tries to connect to `https://gods-health-ai-backend.railway.app` (placeholder URL)
+
+### Quick Fix Steps:
+1. **Deploy Backend to Railway:**
+   - Go to [Railway](https://railway.app)
+   - Connect your GitHub repository
+   - Select the `backend` folder
+   - Railway will auto-deploy the Python Flask app
+
+2. **Update Production URL:**
+   - Get your Railway backend URL (e.g., `https://your-app.railway.app`)
+   - Update `frontend/.env.production` with the real URL
+   - Commit and push changes
+   - GitHub Pages will auto-redeploy with the correct backend URL
 
 ## 🎯 Expected Results
 

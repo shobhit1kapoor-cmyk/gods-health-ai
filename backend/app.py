@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import numpy as np
+import os
 from datetime import datetime
 from pdf_generator import HealthReportGenerator
 
@@ -34,11 +35,14 @@ from predictors import (
 )
 
 app = Flask(__name__)
-CORS(app, origins=[
-    "http://localhost:3000", 
+# Configure CORS for both development and production
+allowed_origins = [
+    "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://shobhit1kapoor-cmyk.github.io"
-])
+    "https://shobhit1kapoor-cmyk.github.io",
+    "https://gods-health-ai.netlify.app"
+]
+CORS(app, origins=allowed_origins)
 
 # Initialize predictors
 predictors = {
@@ -237,7 +241,7 @@ def download_report():
         return jsonify({"error": f"PDF generation error: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    import os
+    # Use environment variables for production deployment
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV') != 'production'
     app.run(host="0.0.0.0", port=port, debug=debug)
