@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { buildApiUrl, API_ENDPOINTS } from '../config/api';
 import {
   ArrowLeft,
   Heart,
@@ -477,7 +478,7 @@ const PredictorDetail: React.FC = () => {
       
       try {
         // Fetch field definitions from backend
-        const response = await fetch(`http://localhost:5000/predictor/${predictorId}/fields`);
+        const response = await fetch(buildApiUrl(API_ENDPOINTS.PREDICTOR_FIELDS(predictorId)));
         if (!response.ok) {
           throw new Error(`Failed to fetch predictor fields: ${response.statusText}`);
         }
@@ -704,7 +705,7 @@ const PredictorDetail: React.FC = () => {
 
       console.log('Sending data to backend:', backendData);
 
-      const response = await axios.post('http://localhost:5000/predict', {
+      const response = await axios.post(buildApiUrl(API_ENDPOINTS.PREDICT), {
         predictor_type: predictor.id,
         data: backendData,
         include_analysis: true
@@ -744,7 +745,7 @@ const PredictorDetail: React.FC = () => {
     
     setIsDownloadingPDF(true);
     try {
-      const response = await fetch('http://localhost:5000/download-report', {
+      const response = await fetch(buildApiUrl(API_ENDPOINTS.DOWNLOAD_REPORT), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

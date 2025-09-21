@@ -34,7 +34,11 @@ from predictors import (
 )
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
+CORS(app, origins=[
+    "http://localhost:3000", 
+    "http://127.0.0.1:3000",
+    "https://shobhit1kapoor-cmyk.github.io"
+])
 
 # Initialize predictors
 predictors = {
@@ -233,4 +237,7 @@ def download_report():
         return jsonify({"error": f"PDF generation error: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    app.run(host="0.0.0.0", port=port, debug=debug)
