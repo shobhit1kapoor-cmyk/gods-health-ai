@@ -280,11 +280,8 @@ const About: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl lg:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
-              Creator
-            </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              This project is made by Shobhit Kapoor
+              Made by Shobhit Kapoor
             </p>
           </motion.div>
 
