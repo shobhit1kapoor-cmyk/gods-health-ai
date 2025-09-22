@@ -46,10 +46,9 @@ const About: React.FC = () => {
     { icon: Award, label: 'Medical Conditions', value: '50+', description: 'Conditions covered' },
   ];
 
-  const team = [
-    {
-      name: 'Shobhit Kapoor',
-      role: 'Creator & Developer',
+  const creator = {
+    name: 'Shobhit Kapoor',
+    role: 'Creator & Developer',
       description: 'Full-stack developer and AI enthusiast who created this comprehensive health prediction platform.',
       image: '/api/placeholder/150/150'
     },
@@ -104,7 +103,7 @@ const About: React.FC = () => {
               </span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              We're revolutionizing healthcare through artificial intelligence, providing accurate health predictions 
+              A personal project revolutionizing healthcare through artificial intelligence, providing accurate health predictions 
               and personalized insights to help you make informed decisions about your health and wellness.
             </p>
           </motion.div>
@@ -272,7 +271,7 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Creator Section */}
       <section className="py-20 bg-gray-50 dark:bg-gray-800">
         <div className="container-max section-padding">
           <motion.div
@@ -282,36 +281,33 @@ const About: React.FC = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl lg:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">
-              Our Team
+              Creator
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Made by Shobhit Kapoor
+              This project is made by Shobhit Kapoor
             </p>
           </motion.div>
 
           <div className="flex justify-center">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="card text-center group hover:shadow-large transition-all duration-300"
-              >
-                <div className="w-24 h-24 bg-gradient-to-br from-primary-400 to-indigo-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Users className="h-12 w-12 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-primary-600 dark:text-primary-400 font-medium mb-3">
-                  {member.role}
-                </p>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  {member.description}
-                </p>
-              </motion.div>
-            ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="card text-center group hover:shadow-large transition-all duration-300"
+            >
+              <div className="w-24 h-24 bg-gradient-to-br from-primary-400 to-indigo-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <Users className="h-12 w-12 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+                {creator.name}
+              </h3>
+              <p className="text-primary-600 dark:text-primary-400 font-medium mb-3">
+                {creator.role}
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                {creator.description}
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>

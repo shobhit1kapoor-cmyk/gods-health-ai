@@ -6,8 +6,8 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    company: [
-      { name: 'About Us', href: '/about' },
+    info: [
+      { name: 'About', href: '/about' },
     ],
   };
 
@@ -38,13 +38,13 @@ const Footer: React.FC = () => {
 
             {/* Removed Product Links section as they were inaccessible */}
 
-            {/* Company Links */}
+            {/* Info Links */}
             <div>
               <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">
-                Company
+                Info
               </h3>
               <ul className="space-y-3">
-                {footerLinks.company.map((link) => (
+                {footerLinks.info.map((link) => (
                   <li key={link.name}>
                     <Link
                       to={link.href}
@@ -65,7 +65,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-200 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm">
-              © {currentYear} Gods Health AI. All rights reserved.
+              © {currentYear} Gods Health AI. Made by Shobhit Kapoor.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <p className="text-xs text-gray-400">
