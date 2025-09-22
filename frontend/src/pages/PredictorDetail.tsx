@@ -705,13 +705,38 @@ const PredictorDetail: React.FC = () => {
 
       console.log('Sending data to backend:', backendData);
 
-      const response = await axios.post(buildApiUrl(API_ENDPOINTS.PREDICT), {
-        predictor_type: predictor.id,
-        data: backendData,
-        include_analysis: true
-      });
-      setResult(response.data);
-      setCurrentStep(1);
+      // Check if we're in static mode (no backend)
+      const isStaticMode = process.env.REACT_APP_STATIC_MODE === 'true';
+      
+      if (isStaticMode) {
+        // Use mock data for static deployment
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API delay
+        
+        const mockResult = {
+          risk_score: Math.random() * 100,
+          risk_level: ['Low', 'Medium', 'High'][Math.floor(Math.random() * 3)],
+          confidence: 85 + Math.random() * 10,
+          recommendations: [
+            'Maintain a balanced diet rich in fruits and vegetables',
+            'Exercise regularly for at least 30 minutes daily',
+            'Monitor your health metrics regularly',
+            'Consult with healthcare professionals for personalized advice'
+          ],
+          analysis: 'This is a demonstration using mock data. In a real deployment with backend, you would receive personalized health predictions based on your input data.'
+        };
+        
+        setResult(mockResult);
+        setCurrentStep(1);
+      } else {
+        // Original API call logic for when backend is available
+        const response = await axios.post(buildApiUrl(API_ENDPOINTS.PREDICT), {
+          predictor_type: predictor.id,
+          data: backendData,
+          include_analysis: true
+        });
+        setResult(response.data);
+        setCurrentStep(1);
+      }
     } catch (err: any) {
       console.error('Prediction error:', err);
       setError(err.response?.data?.error || 'An error occurred while making the prediction.');
@@ -742,6 +767,15 @@ const PredictorDetail: React.FC = () => {
 
   const handleDownloadPDF = async () => {
     if (!result || !predictor) return;
+    
+    // Check if we're in static mode (no backend)
+    const isStaticMode = process.env.REACT_APP_STATIC_MODE === 'true';
+    
+    if (isStaticMode) {
+      // Show message that PDF download is not available in static mode
+      setError('PDF download is not available in static demo mode. This feature requires a backend server.');
+      return;
+    }
     
     setIsDownloadingPDF(true);
     try {
