@@ -49,10 +49,9 @@ const About: React.FC = () => {
   const creator = {
     name: 'Shobhit Kapoor',
     role: 'Creator & Developer',
-      description: 'Full-stack developer and AI enthusiast who created this comprehensive health prediction platform.',
-      image: '/api/placeholder/150/150'
-    },
-  ];
+    description: 'Full-stack developer and AI enthusiast who created this comprehensive health prediction platform.',
+    image: '/api/placeholder/150/150'
+  };
 
   const predictorCategories = [
     {
