@@ -86,12 +86,28 @@ Gods Health AI/
 └── README.md
 ```
 
+## 🌐 Live Demo & Deployment
+
+### 🚀 GitHub Pages (Static Demo)
+Experience the frontend interface with mock data:
+**[https://shobhit1kapoor-cmyk.github.io/gods-health-ai/](https://shobhit1kapoor-cmyk.github.io/gods-health-ai/)**
+
+*Note: This is a static demo using mock prediction data. For full functionality with real AI predictions, a backend deployment is required.*
+
+### 📱 Static Mode Features
+- ✅ Complete UI/UX experience
+- ✅ Form validation and interactions
+- ✅ Mock health predictions with realistic data
+- ✅ Responsive design showcase
+- ❌ PDF report generation (requires backend)
+- ❌ Real AI model predictions (requires backend)
+
 ## 🔬 Technology Stack
 - **Backend**: Python, Flask, Scikit-learn, TensorFlow, Pandas, NumPy
 - **Frontend**: React, TypeScript, Tailwind CSS, Framer Motion, Axios
 - **Enhanced Features**: Advanced ML analysis methods, detailed health insights
 - **Database**: SQLite/PostgreSQL
-- **Deployment**: Docker, AWS/Heroku
+- **Deployment**: GitHub Pages (Static), Docker, AWS/Heroku (Full Stack)
 
 ## 📊 Enhanced Features
 
