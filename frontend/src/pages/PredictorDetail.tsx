@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { buildApiUrl, API_ENDPOINTS } from '../config/api.js';
+import { buildApiUrl, API_ENDPOINTS, isStaticMode } from '../config/api.js';
 import {
   ArrowLeft,
   Heart,
@@ -477,45 +477,66 @@ const PredictorDetail: React.FC = () => {
       setError(null);
       
       try {
-        // Fetch field definitions from backend
-        const response = await fetch(buildApiUrl(API_ENDPOINTS.PREDICTOR_FIELDS(predictorId)));
-        if (!response.ok) {
-          throw new Error(`Failed to fetch predictor fields: ${response.statusText}`);
+        // Check if we're in static mode
+        if (isStaticMode()) {
+          // Use hardcoded data for static mode
+          if (predictorData[predictorId]) {
+            setPredictor(predictorData[predictorId]);
+            const initialData: Record<string, any> = {};
+            predictorData[predictorId].fields.forEach(field => {
+              initialData[field.name] = getDefaultExampleValue(field.name, field);
+            });
+            setFormData(initialData);
+            
+            // Calculate initial form progress
+            const filledFields = Object.values(initialData).filter(val => 
+              val !== '' && val !== null && val !== undefined
+            ).length;
+            setFormProgress((filledFields / (predictorData[predictorId]?.fields?.length || 1)) * 100);
+          } else {
+            throw new Error('Predictor not found in static mode');
+          }
+        } else {
+          // Fetch field definitions from backend
+          const response = await fetch(buildApiUrl(API_ENDPOINTS.PREDICTOR_FIELDS(predictorId)));
+          if (!response.ok) {
+            throw new Error(`Failed to fetch predictor fields: ${response.statusText}`);
+          }
+          
+          const backendInfo: BackendFieldInfo = await response.json();
+          setBackendFields(backendInfo);
+          
+          // Convert backend fields to frontend form fields
+          const formFields = convertBackendFieldsToFormFields(backendInfo);
+          
+          // Create predictor info with dynamic fields
+          const predictorInfo: PredictorInfo = {
+            id: predictorId,
+            name: backendInfo.name,
+            description: backendInfo.description,
+            category: 'Health Assessment',
+            icon: Heart, // Default icon
+            difficulty: 'Medium',
+            estimatedTime: '5-10 min',
+            accuracy: '85%',
+            fields: formFields
+          };
+          
+          setPredictor(predictorInfo);
+          
+          // Initialize form data with example values
+          const initialData: Record<string, any> = {};
+          formFields.forEach(field => {
+            initialData[field.name] = getDefaultExampleValue(field.name, field);
+          });
+          setFormData(initialData);
+          
+          // Calculate initial form progress
+          const filledFields = Object.values(initialData).filter(val => 
+            val !== '' && val !== null && val !== undefined
+          ).length;
+          setFormProgress((filledFields / (formFields?.length || 1)) * 100);
         }
-        
-        const backendInfo: BackendFieldInfo = await response.json();
-        setBackendFields(backendInfo);
-        
-        // Convert backend fields to frontend form fields
-        const formFields = convertBackendFieldsToFormFields(backendInfo);
-        
-        // Create predictor info with dynamic fields
-        const predictorInfo: PredictorInfo = {
-          id: predictorId,
-          name: backendInfo.name,
-          description: backendInfo.description,
-          category: 'Health Assessment',
-          icon: Heart, // Default icon
-          difficulty: 'Medium',
-          estimatedTime: '5-10 min',
-          accuracy: '85%',
-          fields: formFields
-        };
-        
-        setPredictor(predictorInfo);
-        
-        // Initialize form data with example values
-        const initialData: Record<string, any> = {};
-        formFields.forEach(field => {
-          initialData[field.name] = getDefaultExampleValue(field.name, field);
-        });
-        setFormData(initialData);
-        
-        // Calculate initial form progress
-        const filledFields = Object.values(initialData).filter(val => 
-          val !== '' && val !== null && val !== undefined
-        ).length;
-        setFormProgress((filledFields / (formFields?.length || 1)) * 100);
         
       } catch (err) {
         console.error('Error fetching predictor fields:', err);
