@@ -13,8 +13,7 @@ import {
   Zap,
   Users,
   ChevronRight,
-  Clock,
-  Star
+  Clock
 } from 'lucide-react';
 
 interface Predictor {
@@ -107,6 +106,16 @@ const PredictorsList: React.FC = () => {
       icon: Activity,
       difficulty: 'Advanced',
       estimatedTime: '7-9 min',
+      accuracy: '87%'
+    },
+    {
+      id: 'diabetes',
+      name: 'Diabetes Risk Predictor',
+      description: 'Predict Type 2 diabetes risk using glucose levels, BMI, family history, and lifestyle factors.',
+      category: 'disease-risk-diagnosis',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '5-7 min',
       accuracy: '87%'
     },
 
@@ -303,7 +312,7 @@ const PredictorsList: React.FC = () => {
     setFilteredPredictors(filtered);
   }, [searchTerm, selectedCategory, predictors]);
 
-  const featuredPredictors = predictors.filter(p => p.featured);
+
 
   return (
     <div className="min-h-screen py-8">
@@ -324,72 +333,7 @@ const PredictorsList: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Featured Predictors */}
-        {featuredPredictors.length > 0 && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mb-12"
-          >
-            <div className="flex items-center mb-6">
-              <Star className="h-6 w-6 text-yellow-500 mr-2" />
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Featured Predictors</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredPredictors.map((predictor, index) => {
-                const Icon = predictor.icon;
-                return (
-                  <motion.div
-                    key={predictor.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                  >
-                    <Link
-                      to={`/predictor/${predictor.id}`}
-                      className="block card hover:shadow-large transition-all duration-300 group relative overflow-hidden"
-                    >
-                      <div className="absolute top-4 right-4">
-                        <div className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded-full flex items-center">
-                          <Star className="h-3 w-3 mr-1" />
-                          Featured
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-4 mb-4">
-                        <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors duration-300">
-                          <Icon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
-                            {predictor.name}
-                          </h3>
-                          <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">
-                            {predictor.description}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center space-x-4">
-                          <div className="flex items-center text-gray-500 dark:text-gray-400">
-                            <Clock className="h-4 w-4 mr-1" />
-                            {predictor.estimatedTime}
-                          </div>
-                          <div className="text-green-600 dark:text-green-400 font-medium">
-                            {predictor.accuracy} accuracy
-                          </div>
-                        </div>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(predictor.difficulty)}`}>
-                          {predictor.difficulty}
-                        </span>
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </motion.section>
-        )}
+
 
         {/* Search and Filter */}
         <motion.div

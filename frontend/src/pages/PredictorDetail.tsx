@@ -18,11 +18,15 @@ import {
   Loader,
   Download,
   Share2,
+  Shield,
+  Droplets,
+  Apple,
+  Dumbbell,
+  Moon,
   HelpCircle,
   ChevronDown,
   User,
   Calendar,
-  Droplets,
   Thermometer,
   Scale,
   FileText,
@@ -118,6 +122,8 @@ const PredictorDetail: React.FC = () => {
       'age': 45,
       'gender': 'Male',
       'sex': 'Male',
+      'weight': 70,
+      'height': 175,
       
       // Vital signs and measurements
       'systolic_bp': 130,
@@ -132,8 +138,13 @@ const PredictorDetail: React.FC = () => {
       'bmi': 26.5,
       'max_hr': 165,
       'oldpeak': 1.2,
+      'glucose_level': 95,
       'avg_glucose_level': 110,
+      'waist_circumference': 85,
       'specific_gravity': 1.025,
+      'water_intake': 2.5,
+      'meals_per_day': 3,
+      'fruit_vegetable_servings': 5,
       'albumin': 1,
       'sugar': 0,
       
@@ -141,6 +152,7 @@ const PredictorDetail: React.FC = () => {
       'hypertension': 'No',
       'heart_disease': 'No',
       'family_history': 'Yes',
+      'family_history_diabetes': 'No',
       'family_history_respiratory': 'No',
       'diabetes': 'No',
       'fasting_bs': 'No',
@@ -148,13 +160,41 @@ const PredictorDetail: React.FC = () => {
       'previous_complications': 'No',
       
       // Lifestyle factors
-      'smoking_status': 'Never smoked',
+      'smoking_status': 'Never Smoked',
       'smoking': 'No',
       'smoking_years': 0,
       'smoking_pack_years': 0,
+      'physical_activity': 'Moderate',
+      'activity_level': 'Moderately Active',
+      'current_fitness_level': 'Intermediate',
+      'exercise_duration': 45,
+      'dietary_restrictions': 'None',
+      'processed_food_frequency': 'Sometimes',
+      'cooking_frequency': 'Often',
+      'supplement_use': 'No',
+      'alcohol_consumption': 'Light',
       'exercise_frequency': 'Moderate',
       'sleep_hours': 7,
+      'morning_alertness': 'Alert',
+      'daytime_fatigue': 'Sometimes',
+      'caffeine_intake': 'Moderate (3-4 cups)',
+      'screen_time_before_bed': '<30 min',
+      'sleep_environment': 'Good',
+      'snoring': 'No',
+      'sleep_medications': 'No',
+      'sleep_problems': 'No',
       'stress_level': 3,
+      'work_stress_level': 5,
+      'occupation': 'Technology',
+      'work_hours_per_week': 40,
+      'job_satisfaction': 'Satisfied',
+      'work_life_balance': 'Good',
+      'emotional_exhaustion': 'Sometimes',
+      'cynicism': 'Rarely',
+      'personal_accomplishment': 'High',
+      'physical_symptoms': 'No',
+      'coping_strategies': 'Exercise',
+      'support_system': 'Good',
       'social_support': 'Good',
       'work_satisfaction': 'Satisfied',
       'substance_use': 'None',
@@ -445,6 +485,321 @@ const PredictorDetail: React.FC = () => {
         { name: 'smoking_status', label: 'Smoking Status', type: 'select', required: true, options: ['Never Smoked', 'Formerly Smoked', 'Smokes'] }
       ]
     },
+    cancer_detection: {
+      id: 'cancer_detection',
+      name: 'Cancer Detection & Risk',
+      description: 'Comprehensive cancer risk assessment for breast, lung, prostate, skin, and cervical cancers.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Stethoscope,
+      difficulty: 'Advanced',
+      estimatedTime: '10-12 min',
+      accuracy: '89%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'family_history', label: 'Family History of Cancer', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'smoking_status', label: 'Smoking Status', type: 'select', required: true, options: ['Never Smoked', 'Former Smoker', 'Current Smoker'] },
+        { name: 'alcohol_consumption', label: 'Alcohol Consumption', type: 'select', required: true, options: ['None', 'Light', 'Moderate', 'Heavy'] },
+        { name: 'bmi', label: 'Body Mass Index (BMI)', type: 'number', required: true, min: 15, max: 50, step: 0.1, unit: 'kg/m²' },
+        { name: 'exercise_frequency', label: 'Exercise Frequency per Week', type: 'number', required: true, min: 0, max: 14, unit: 'times' },
+        { name: 'environmental_exposure', label: 'Environmental/Occupational Exposure', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'previous_cancer', label: 'Previous Cancer History', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'hormonal_factors', label: 'Hormonal Risk Factors', type: 'radio', required: true, options: ['Yes', 'No'] }
+      ]
+    },
+    kidney_disease: {
+      id: 'kidney_disease',
+      name: 'Kidney Disease Predictor',
+      description: 'Chronic kidney disease detection using blood and urine test data.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '4-6 min',
+      accuracy: '91%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'blood_pressure', label: 'Blood Pressure', type: 'number', required: true, min: 80, max: 200, unit: 'mmHg' },
+        { name: 'specific_gravity', label: 'Specific Gravity', type: 'number', required: true, min: 1.005, max: 1.030, step: 0.001 },
+        { name: 'albumin', label: 'Albumin', type: 'number', required: true, min: 0, max: 5 },
+        { name: 'sugar', label: 'Sugar', type: 'number', required: true, min: 0, max: 5 },
+        { name: 'red_blood_cells', label: 'Red Blood Cells', type: 'select', required: true, options: ['Normal', 'Abnormal'] },
+        { name: 'pus_cell', label: 'Pus Cell', type: 'select', required: true, options: ['Normal', 'Abnormal'] },
+        { name: 'pus_cell_clumps', label: 'Pus Cell Clumps', type: 'select', required: true, options: ['Present', 'Not Present'] },
+        { name: 'bacteria', label: 'Bacteria', type: 'select', required: true, options: ['Present', 'Not Present'] },
+        { name: 'blood_glucose_random', label: 'Blood Glucose Random', type: 'number', required: true, min: 50, max: 500, unit: 'mgs/dl' },
+        { name: 'blood_urea', label: 'Blood Urea', type: 'number', required: true, min: 1.5, max: 391, unit: 'mgs/dl' },
+        { name: 'serum_creatinine', label: 'Serum Creatinine', type: 'number', required: true, min: 0.4, max: 76, step: 0.1, unit: 'mgs/dl' },
+        { name: 'sodium', label: 'Sodium', type: 'number', required: true, min: 4.5, max: 163, unit: 'mEq/L' },
+        { name: 'potassium', label: 'Potassium', type: 'number', required: true, min: 2.5, max: 47, step: 0.1, unit: 'mEq/L' },
+        { name: 'hemoglobin', label: 'Hemoglobin', type: 'number', required: true, min: 3.1, max: 17.8, step: 0.1, unit: 'gms' },
+        { name: 'packed_cell_volume', label: 'Packed Cell Volume', type: 'number', required: true, min: 9, max: 54 },
+        { name: 'white_blood_cell_count', label: 'White Blood Cell Count', type: 'number', required: true, min: 2200, max: 26400 },
+        { name: 'red_blood_cell_count', label: 'Red Blood Cell Count', type: 'number', required: true, min: 2.1, max: 8, step: 0.1, unit: 'millions/cmm' },
+        { name: 'hypertension', label: 'Hypertension', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'diabetes_mellitus', label: 'Diabetes Mellitus', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'coronary_artery_disease', label: 'Coronary Artery Disease', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'appetite', label: 'Appetite', type: 'select', required: true, options: ['Good', 'Poor'] },
+        { name: 'pedal_edema', label: 'Pedal Edema', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'anemia', label: 'Anemia', type: 'radio', required: true, options: ['Yes', 'No'] }
+      ]
+    },
+    liver_disease: {
+      id: 'liver_disease',
+      name: 'Liver Disease Predictor',
+      description: 'Detect hepatitis, cirrhosis, and fatty liver disease from laboratory test results.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Stethoscope,
+      difficulty: 'Medium',
+      estimatedTime: '5-7 min',
+      accuracy: '88%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'total_bilirubin', label: 'Total Bilirubin', type: 'number', required: true, min: 0.1, max: 75, step: 0.1, unit: 'mg/dL' },
+        { name: 'direct_bilirubin', label: 'Direct Bilirubin', type: 'number', required: true, min: 0.1, max: 19.7, step: 0.1, unit: 'mg/dL' },
+        { name: 'alkaline_phosphotase', label: 'Alkaline Phosphotase', type: 'number', required: true, min: 63, max: 2110, unit: 'IU/L' },
+        { name: 'alamine_aminotransferase', label: 'Alamine Aminotransferase', type: 'number', required: true, min: 10, max: 2000, unit: 'IU/L' },
+        { name: 'aspartate_aminotransferase', label: 'Aspartate Aminotransferase', type: 'number', required: true, min: 10, max: 4929, unit: 'IU/L' },
+        { name: 'total_proteins', label: 'Total Proteins', type: 'number', required: true, min: 2.7, max: 9.6, step: 0.1, unit: 'g/dL' },
+        { name: 'albumin', label: 'Albumin', type: 'number', required: true, min: 0.9, max: 5.5, step: 0.1, unit: 'g/dL' },
+        { name: 'albumin_and_globulin_ratio', label: 'Albumin and Globulin Ratio', type: 'number', required: true, min: 0.3, max: 2.8, step: 0.1 }
+      ]
+    },
+    alzheimer: {
+      id: 'alzheimer',
+      name: 'Alzheimer\'s Predictor',
+      description: 'Early detection of Alzheimer\'s and dementia using memory and behavioral assessment data.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Brain,
+      difficulty: 'Advanced',
+      estimatedTime: '8-10 min',
+      accuracy: '85%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 50, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'education_years', label: 'Years of Education', type: 'number', required: true, min: 0, max: 30, unit: 'years' },
+        { name: 'cognitive_score', label: 'Cognitive Assessment Score (MMSE)', type: 'number', required: true, min: 0, max: 30 },
+        { name: 'family_history', label: 'Family History of Dementia', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'apoe4_status', label: 'APOE4 Gene Status', type: 'select', required: true, options: ['Negative', 'Positive', 'Unknown'] },
+        { name: 'memory_complaints', label: 'Memory Complaints', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'depression_score', label: 'Depression Score (0-15)', type: 'number', required: true, min: 0, max: 15 },
+        { name: 'anxiety_score', label: 'Anxiety Score (0-21)', type: 'number', required: true, min: 0, max: 21 },
+        { name: 'sleep_quality', label: 'Sleep Quality', type: 'select', required: true, options: ['Poor', 'Fair', 'Good', 'Excellent'] },
+        { name: 'physical_activity', label: 'Physical Activity Level', type: 'select', required: true, options: ['Sedentary', 'Light', 'Moderate', 'Vigorous'] },
+        { name: 'social_engagement', label: 'Social Engagement Level', type: 'select', required: true, options: ['Low', 'Moderate', 'High'] }
+      ]
+    },
+    parkinson: {
+      id: 'parkinson',
+      name: 'Parkinson\'s Disease Predictor',
+      description: 'Analyze voice patterns, tremor, and movement data for Parkinson\'s disease detection.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Activity,
+      difficulty: 'Advanced',
+      estimatedTime: '7-9 min',
+      accuracy: '87%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 30, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'mdvp_fo', label: 'Average vocal fundamental frequency', type: 'number', required: true, min: 88, max: 260, step: 0.1, unit: 'Hz' },
+        { name: 'mdvp_fhi', label: 'Maximum vocal fundamental frequency', type: 'number', required: true, min: 102, max: 592, step: 0.1, unit: 'Hz' },
+        { name: 'mdvp_flo', label: 'Minimum vocal fundamental frequency', type: 'number', required: true, min: 65, max: 239, step: 0.1, unit: 'Hz' },
+        { name: 'mdvp_jitter_percent', label: 'Jitter (percentage)', type: 'number', required: true, min: 0.00168, max: 0.03316, step: 0.00001 },
+        { name: 'mdvp_jitter_abs', label: 'Jitter (absolute)', type: 'number', required: true, min: 0.000007, max: 0.000260, step: 0.000001 },
+        { name: 'mdvp_rap', label: 'Relative amplitude perturbation', type: 'number', required: true, min: 0.00068, max: 0.02144, step: 0.00001 },
+        { name: 'mdvp_ppq', label: 'Five-point period perturbation quotient', type: 'number', required: true, min: 0.00092, max: 0.01958, step: 0.00001 },
+        { name: 'jitter_ddp', label: 'Jitter DDP', type: 'number', required: true, min: 0.00204, max: 0.06433, step: 0.00001 },
+        { name: 'mdvp_shimmer', label: 'Shimmer', type: 'number', required: true, min: 0.00954, max: 0.11908, step: 0.00001 },
+        { name: 'mdvp_shimmer_db', label: 'Shimmer (dB)', type: 'number', required: true, min: 0.085, max: 1.302, step: 0.001, unit: 'dB' },
+        { name: 'shimmer_apq3', label: 'Three-point amplitude perturbation quotient', type: 'number', required: true, min: 0.00455, max: 0.05647, step: 0.00001 },
+        { name: 'shimmer_apq5', label: 'Five-point amplitude perturbation quotient', type: 'number', required: true, min: 0.00757, max: 0.07940, step: 0.00001 },
+        { name: 'mdvp_apq', label: 'Amplitude perturbation quotient', type: 'number', required: true, min: 0.00719, max: 0.13778, step: 0.00001 },
+        { name: 'shimmer_dda', label: 'Shimmer DDA', type: 'number', required: true, min: 0.01364, max: 0.16942, step: 0.00001 },
+        { name: 'nhr', label: 'Noise-to-harmonics ratio', type: 'number', required: true, min: 0.00065, max: 0.31482, step: 0.00001 },
+        { name: 'hnr', label: 'Harmonics-to-noise ratio', type: 'number', required: true, min: 8.441, max: 33.047, step: 0.001, unit: 'dB' },
+        { name: 'rpde', label: 'Recurrence period density entropy', type: 'number', required: true, min: 0.256570, max: 0.685151, step: 0.000001 },
+        { name: 'dfa', label: 'Detrended fluctuation analysis', type: 'number', required: true, min: 0.574282, max: 0.825288, step: 0.000001 },
+        { name: 'spread1', label: 'Nonlinear measure of fundamental frequency variation', type: 'number', required: true, min: -7.964984, max: -2.434031, step: 0.000001 },
+        { name: 'spread2', label: 'Nonlinear measure of fundamental frequency variation', type: 'number', required: true, min: 0.006274, max: 0.450493, step: 0.000001 },
+        { name: 'd2', label: 'Nonlinear dynamical complexity measure', type: 'number', required: true, min: 1.423287, max: 3.671155, step: 0.000001 },
+        { name: 'ppe', label: 'Pitch period entropy', type: 'number', required: true, min: 0.044539, max: 0.527367, step: 0.000001 }
+      ]
+    },
+    covid_risk: {
+      id: 'covid_risk',
+      name: 'COVID-19 Risk Assessment',
+      description: 'Assess COVID-19 infection risk and severity based on symptoms, exposure, and health factors.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Shield,
+      difficulty: 'Easy',
+      estimatedTime: '3-5 min',
+      accuracy: '86%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 0, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female', 'Other'] },
+        { name: 'fever', label: 'Fever (>100.4°F)', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'cough', label: 'Cough', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'shortness_of_breath', label: 'Shortness of Breath', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'fatigue', label: 'Fatigue', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'loss_of_taste_smell', label: 'Loss of Taste or Smell', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'close_contact', label: 'Close Contact with COVID-19 Case', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'travel_history', label: 'Recent Travel to High-Risk Area', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'underlying_conditions', label: 'Underlying Health Conditions', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'vaccination_status', label: 'COVID-19 Vaccination Status', type: 'select', required: true, options: ['Unvaccinated', 'Partially Vaccinated', 'Fully Vaccinated', 'Boosted'] }
+      ]
+    },
+    asthma_copd: {
+      id: 'asthma_copd',
+      name: 'Asthma & COPD Predictor',
+      description: 'Respiratory health assessment for asthma and COPD using lung function and symptom data.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '6-8 min',
+      accuracy: '90%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'smoking_history', label: 'Smoking History', type: 'select', required: true, options: ['Never Smoked', 'Former Smoker', 'Current Smoker'] },
+        { name: 'pack_years', label: 'Pack Years (if applicable)', type: 'number', required: false, min: 0, max: 100, unit: 'pack-years' },
+        { name: 'shortness_of_breath', label: 'Shortness of Breath', type: 'select', required: true, options: ['None', 'Mild', 'Moderate', 'Severe'] },
+        { name: 'wheezing', label: 'Wheezing', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'chronic_cough', label: 'Chronic Cough', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'sputum_production', label: 'Sputum Production', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'chest_tightness', label: 'Chest Tightness', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'family_history', label: 'Family History of Respiratory Disease', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'occupational_exposure', label: 'Occupational Exposure to Dust/Chemicals', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'allergies', label: 'Known Allergies', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'exercise_tolerance', label: 'Exercise Tolerance', type: 'select', required: true, options: ['Normal', 'Mildly Reduced', 'Moderately Reduced', 'Severely Reduced'] }
+      ]
+    },
+    anemia: {
+      id: 'anemia',
+      name: 'Anemia Detection',
+      description: 'Iron deficiency and anemia detection using blood test parameters and symptoms.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Droplets,
+      difficulty: 'Easy',
+      estimatedTime: '4-6 min',
+      accuracy: '93%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 0, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'hemoglobin', label: 'Hemoglobin Level', type: 'number', required: true, min: 3, max: 20, step: 0.1, unit: 'g/dL' },
+        { name: 'hematocrit', label: 'Hematocrit', type: 'number', required: true, min: 10, max: 60, step: 0.1, unit: '%' },
+        { name: 'mcv', label: 'Mean Corpuscular Volume (MCV)', type: 'number', required: true, min: 60, max: 120, unit: 'fL' },
+        { name: 'mch', label: 'Mean Corpuscular Hemoglobin (MCH)', type: 'number', required: true, min: 20, max: 40, step: 0.1, unit: 'pg' },
+        { name: 'mchc', label: 'Mean Corpuscular Hemoglobin Concentration (MCHC)', type: 'number', required: true, min: 28, max: 38, step: 0.1, unit: 'g/dL' },
+        { name: 'fatigue', label: 'Fatigue', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'weakness', label: 'Weakness', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'pale_skin', label: 'Pale Skin', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'shortness_of_breath', label: 'Shortness of Breath', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'cold_hands_feet', label: 'Cold Hands or Feet', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'brittle_nails', label: 'Brittle or Spoon-shaped Nails', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'heavy_menstrual_periods', label: 'Heavy Menstrual Periods (if applicable)', type: 'radio', required: false, options: ['Yes', 'No'] },
+        { name: 'dietary_iron_intake', label: 'Adequate Dietary Iron Intake', type: 'radio', required: true, options: ['Yes', 'No'] }
+      ]
+    },
+    nutrition_analysis: {
+      id: 'nutrition_analysis',
+      name: 'Nutrition & Diet Analysis',
+      description: 'Personalized nutrition recommendations and deficiency detection based on dietary habits.',
+      category: 'Lifestyle & Prevention',
+      icon: Apple,
+      difficulty: 'Easy',
+      estimatedTime: '5-7 min',
+      accuracy: '82%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'weight', label: 'Weight', type: 'number', required: true, min: 30, max: 300, unit: 'kg' },
+        { name: 'height', label: 'Height', type: 'number', required: true, min: 100, max: 250, unit: 'cm' },
+        { name: 'activity_level', label: 'Physical Activity Level', type: 'select', required: true, options: ['Sedentary', 'Lightly Active', 'Moderately Active', 'Very Active', 'Extremely Active'] },
+        { name: 'dietary_restrictions', label: 'Dietary Restrictions', type: 'select', required: true, options: ['None', 'Vegetarian', 'Vegan', 'Gluten-Free', 'Keto', 'Paleo', 'Other'] },
+        { name: 'meals_per_day', label: 'Meals per Day', type: 'number', required: true, min: 1, max: 10 },
+        { name: 'water_intake', label: 'Daily Water Intake', type: 'number', required: true, min: 0, max: 10, step: 0.1, unit: 'liters' },
+        { name: 'fruit_vegetable_servings', label: 'Daily Fruit & Vegetable Servings', type: 'number', required: true, min: 0, max: 20 },
+        { name: 'processed_food_frequency', label: 'Processed Food Frequency', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Daily'] },
+        { name: 'supplement_use', label: 'Supplement Use', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'cooking_frequency', label: 'Home Cooking Frequency', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Daily'] }
+      ]
+    },
+    fitness_assessment: {
+      id: 'fitness_assessment',
+      name: 'Fitness & Exercise Assessment',
+      description: 'Comprehensive fitness evaluation and personalized workout recommendations.',
+      category: 'Lifestyle & Prevention',
+      icon: Dumbbell,
+      difficulty: 'Medium',
+      estimatedTime: '6-8 min',
+      accuracy: '85%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'current_fitness_level', label: 'Current Fitness Level', type: 'select', required: true, options: ['Beginner', 'Intermediate', 'Advanced', 'Elite'] },
+        { name: 'exercise_frequency', label: 'Exercise Frequency per Week', type: 'number', required: true, min: 0, max: 14, unit: 'times' },
+        { name: 'exercise_duration', label: 'Average Exercise Duration', type: 'number', required: true, min: 0, max: 300, unit: 'minutes' },
+        { name: 'preferred_activities', label: 'Preferred Exercise Activities', type: 'select', required: true, options: ['Cardio', 'Strength Training', 'Yoga/Pilates', 'Sports', 'Mixed'] },
+        { name: 'fitness_goals', label: 'Primary Fitness Goals', type: 'select', required: true, options: ['Weight Loss', 'Muscle Gain', 'Endurance', 'Flexibility', 'General Health'] },
+        { name: 'resting_heart_rate', label: 'Resting Heart Rate', type: 'number', required: true, min: 40, max: 120, unit: 'bpm' },
+        { name: 'injuries_limitations', label: 'Current Injuries or Limitations', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'sleep_quality', label: 'Sleep Quality', type: 'select', required: true, options: ['Poor', 'Fair', 'Good', 'Excellent'] },
+        { name: 'stress_level', label: 'Stress Level (1-10)', type: 'number', required: true, min: 1, max: 10 },
+        { name: 'recovery_time', label: 'Recovery Time Between Workouts', type: 'select', required: true, options: ['<24 hours', '24-48 hours', '48-72 hours', '>72 hours'] }
+      ]
+    },
+    sleep_analysis: {
+      id: 'sleep_analysis',
+      name: 'Sleep Quality Analysis',
+      description: 'Sleep pattern analysis and insomnia detection using wearable data and sleep surveys.',
+      category: 'Lifestyle & Prevention',
+      icon: Moon,
+      difficulty: 'Easy',
+      estimatedTime: '4-6 min',
+      accuracy: '87%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female', 'Other'] },
+        { name: 'bedtime', label: 'Usual Bedtime', type: 'time', required: true },
+        { name: 'wake_time', label: 'Usual Wake Time', type: 'time', required: true },
+        { name: 'sleep_duration', label: 'Average Sleep Duration', type: 'number', required: true, min: 0, max: 24, step: 0.5, unit: 'hours' },
+        { name: 'time_to_fall_asleep', label: 'Time to Fall Asleep', type: 'number', required: true, min: 0, max: 180, unit: 'minutes' },
+        { name: 'night_awakenings', label: 'Night Awakenings per Night', type: 'number', required: true, min: 0, max: 20 },
+        { name: 'sleep_quality_rating', label: 'Sleep Quality Rating (1-10)', type: 'number', required: true, min: 1, max: 10 },
+        { name: 'morning_alertness', label: 'Morning Alertness', type: 'select', required: true, options: ['Very Groggy', 'Groggy', 'Neutral', 'Alert', 'Very Alert'] },
+        { name: 'daytime_fatigue', label: 'Daytime Fatigue', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'] },
+        { name: 'caffeine_intake', label: 'Daily Caffeine Intake', type: 'select', required: true, options: ['None', 'Low (1-2 cups)', 'Moderate (3-4 cups)', 'High (5+ cups)'] },
+        { name: 'screen_time_before_bed', label: 'Screen Time Before Bed', type: 'select', required: true, options: ['None', '<30 min', '30-60 min', '1-2 hours', '>2 hours'] },
+        { name: 'sleep_environment', label: 'Sleep Environment Quality', type: 'select', required: true, options: ['Poor', 'Fair', 'Good', 'Excellent'] },
+        { name: 'snoring', label: 'Snoring', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'sleep_medications', label: 'Sleep Medications/Aids', type: 'radio', required: true, options: ['Yes', 'No'] }
+      ]
+    },
+    stress_burnout: {
+      id: 'stress_burnout',
+      name: 'Stress & Burnout Assessment',
+      description: 'Workplace stress and burnout detection with personalized coping strategies.',
+      category: 'Lifestyle & Prevention',
+      icon: AlertTriangle,
+      difficulty: 'Medium',
+      estimatedTime: '7-9 min',
+      accuracy: '83%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'occupation', label: 'Occupation Type', type: 'select', required: true, options: ['Healthcare', 'Education', 'Technology', 'Finance', 'Retail', 'Manufacturing', 'Other'] },
+        { name: 'work_hours_per_week', label: 'Work Hours per Week', type: 'number', required: true, min: 0, max: 100, unit: 'hours' },
+        { name: 'work_stress_level', label: 'Work Stress Level (1-10)', type: 'number', required: true, min: 1, max: 10 },
+        { name: 'job_satisfaction', label: 'Job Satisfaction', type: 'select', required: true, options: ['Very Dissatisfied', 'Dissatisfied', 'Neutral', 'Satisfied', 'Very Satisfied'] },
+        { name: 'work_life_balance', label: 'Work-Life Balance', type: 'select', required: true, options: ['Very Poor', 'Poor', 'Fair', 'Good', 'Excellent'] },
+        { name: 'emotional_exhaustion', label: 'Emotional Exhaustion', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'] },
+        { name: 'cynicism', label: 'Cynicism/Detachment', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'] },
+        { name: 'personal_accomplishment', label: 'Sense of Personal Accomplishment', type: 'select', required: true, options: ['Very Low', 'Low', 'Moderate', 'High', 'Very High'] },
+        { name: 'physical_symptoms', label: 'Physical Stress Symptoms', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'sleep_problems', label: 'Sleep Problems Due to Stress', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'coping_strategies', label: 'Current Coping Strategies', type: 'select', required: true, options: ['None', 'Exercise', 'Meditation', 'Social Support', 'Professional Help', 'Multiple'] },
+        { name: 'support_system', label: 'Support System Quality', type: 'select', required: true, options: ['Very Poor', 'Poor', 'Fair', 'Good', 'Excellent'] }
+      ]
+    },
     mental_health: {
       id: 'mental_health',
       name: 'Mental Health Predictor',
@@ -465,6 +820,79 @@ const PredictorDetail: React.FC = () => {
         { name: 'family_history', label: 'Family History of Mental Health Issues', type: 'radio', required: true, options: ['Yes', 'No'] },
         { name: 'substance_use', label: 'Substance Use', type: 'select', required: true, options: ['None', 'Occasional', 'Regular', 'Heavy'] },
         { name: 'chronic_illness', label: 'Chronic Illness', type: 'radio', required: true, options: ['Yes', 'No'] }
+      ]
+    },
+    thyroid_disorders: {
+      id: 'thyroid_disorders',
+      name: 'Thyroid Disorder Predictor',
+      description: 'Detect hyperthyroidism and hypothyroidism using thyroid function tests.',
+      category: 'Specialized Care',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '4-6 min',
+      accuracy: '90%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'sex', label: 'Sex', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'tsh', label: 'TSH Level', type: 'number', required: true, min: 0.1, max: 50, step: 0.1, unit: 'mIU/L' },
+        { name: 't3', label: 'T3 Level', type: 'number', required: true, min: 0.5, max: 10, step: 0.1, unit: 'pg/mL' },
+        { name: 't4', label: 'T4 Level', type: 'number', required: true, min: 0.5, max: 25, step: 0.1, unit: 'μg/dL' },
+        { name: 'family_history_thyroid', label: 'Family History of Thyroid Disease', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'weight_changes', label: 'Recent Weight Changes', type: 'select', required: true, options: ['Significant Loss', 'Moderate Loss', 'No Change', 'Moderate Gain', 'Significant Gain'] },
+        { name: 'heart_rate', label: 'Resting Heart Rate', type: 'number', required: true, min: 40, max: 150, unit: 'bpm' },
+        { name: 'fatigue_level', label: 'Fatigue Level', type: 'select', required: true, options: ['None', 'Mild', 'Moderate', 'Severe'] },
+        { name: 'heat_cold_intolerance', label: 'Temperature Intolerance', type: 'select', required: true, options: ['Heat Intolerance', 'Cold Intolerance', 'Neither', 'Both'] },
+        { name: 'sleep_changes', label: 'Sleep Pattern Changes', type: 'select', required: true, options: ['Insomnia', 'Excessive Sleep', 'No Change'] },
+        { name: 'mood_changes', label: 'Mood Changes', type: 'select', required: true, options: ['Anxiety/Irritability', 'Depression', 'Mood Swings', 'No Change'] }
+      ]
+    },
+    cancer_recurrence: {
+      id: 'cancer_recurrence',
+      name: 'Cancer Recurrence Predictor',
+      description: 'Predict likelihood of cancer recurrence after successful treatment.',
+      category: 'Specialized Care',
+      icon: Shield,
+      difficulty: 'Advanced',
+      estimatedTime: '8-10 min',
+      accuracy: '85%',
+      fields: [
+        { name: 'age_at_diagnosis', label: 'Age at Initial Diagnosis', type: 'number', required: true, min: 18, max: 100, unit: 'years' },
+        { name: 'cancer_type', label: 'Cancer Type', type: 'select', required: true, options: ['Breast', 'Lung', 'Colorectal', 'Prostate', 'Ovarian', 'Other'] },
+        { name: 'cancer_stage', label: 'Initial Cancer Stage', type: 'select', required: true, options: ['Stage I', 'Stage II', 'Stage III', 'Stage IV'] },
+        { name: 'tumor_size', label: 'Initial Tumor Size', type: 'number', required: true, min: 0.1, max: 20, step: 0.1, unit: 'cm' },
+        { name: 'lymph_nodes_affected', label: 'Lymph Nodes Affected', type: 'number', required: true, min: 0, max: 50 },
+        { name: 'treatment_type', label: 'Primary Treatment', type: 'select', required: true, options: ['Surgery Only', 'Surgery + Chemotherapy', 'Surgery + Radiation', 'Surgery + Chemo + Radiation', 'Chemotherapy Only', 'Radiation Only'] },
+        { name: 'months_since_treatment', label: 'Months Since Treatment Completion', type: 'number', required: true, min: 1, max: 120, unit: 'months' },
+        { name: 'hormone_receptor_status', label: 'Hormone Receptor Status', type: 'select', required: true, options: ['Positive', 'Negative', 'Unknown'] },
+        { name: 'genetic_markers', label: 'High-Risk Genetic Markers', type: 'radio', required: true, options: ['Yes', 'No', 'Unknown'] },
+        { name: 'family_history_cancer', label: 'Family History of Cancer', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'lifestyle_factors', label: 'High-Risk Lifestyle Factors', type: 'select', required: true, options: ['Smoking', 'Heavy Alcohol Use', 'Poor Diet', 'Sedentary Lifestyle', 'Multiple Factors', 'None'] },
+        { name: 'follow_up_compliance', label: 'Follow-up Appointment Compliance', type: 'select', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
+        { name: 'current_symptoms', label: 'Current Concerning Symptoms', type: 'radio', required: true, options: ['Yes', 'No'] }
+      ]
+    },
+    diabetes: {
+      id: 'diabetes',
+      name: 'Diabetes Risk Predictor',
+      description: 'Assess diabetes risk using glucose levels, BMI, family history, and lifestyle factors.',
+      category: 'Disease Risk & Diagnosis',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '5-7 min',
+      accuracy: '87%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Male', 'Female'] },
+        { name: 'bmi', label: 'Body Mass Index (BMI)', type: 'number', required: true, min: 15, max: 50, step: 0.1, unit: 'kg/m²' },
+        { name: 'glucose_level', label: 'Fasting Glucose Level', type: 'number', required: true, min: 70, max: 300, unit: 'mg/dL' },
+        { name: 'blood_pressure', label: 'Systolic Blood Pressure', type: 'number', required: true, min: 80, max: 200, unit: 'mmHg' },
+        { name: 'family_history_diabetes', label: 'Family History of Diabetes', type: 'radio', required: true, options: ['Yes', 'No'] },
+        { name: 'physical_activity', label: 'Physical Activity Level', type: 'select', required: true, options: ['Sedentary', 'Light', 'Moderate', 'High'] },
+        { name: 'smoking_status', label: 'Smoking Status', type: 'select', required: true, options: ['Never', 'Former', 'Current'] },
+        { name: 'alcohol_consumption', label: 'Alcohol Consumption', type: 'select', required: true, options: ['None', 'Light', 'Moderate', 'Heavy'] },
+        { name: 'stress_level', label: 'Stress Level (1-10)', type: 'number', required: true, min: 1, max: 10 },
+        { name: 'sleep_hours', label: 'Average Sleep Hours per Night', type: 'number', required: true, min: 3, max: 12, step: 0.5, unit: 'hours' },
+        { name: 'waist_circumference', label: 'Waist Circumference', type: 'number', required: true, min: 50, max: 150, unit: 'cm' }
       ]
     }
   }), []);
@@ -586,17 +1014,17 @@ const PredictorDetail: React.FC = () => {
     }
 
     // Age-specific validation
-    if (field.name === 'age' && value) {
+    if (field.name === 'age' && (value !== null && value !== undefined && value !== '')) {
       const age = parseFloat(value);
-      if (age < 0 || age > 150) {
+      if (!isNaN(age) && (age < 0 || age > 150)) {
         return 'Please enter a valid age between 0 and 150';
       }
     }
 
     // Blood pressure validation
-    if (field.name.includes('bp') || field.name.includes('blood_pressure')) {
+    if ((field.name.includes('bp') || field.name.includes('blood_pressure')) && (value !== null && value !== undefined && value !== '')) {
       const bp = parseFloat(value);
-      if (bp && (bp < 50 || bp > 300)) {
+      if (!isNaN(bp) && (bp < 50 || bp > 300)) {
         return 'Please enter a realistic blood pressure value';
       }
     }
@@ -715,10 +1143,10 @@ const PredictorDetail: React.FC = () => {
             // Convert Yes/No to 1/0
             backendData[backendFieldName] = value === 'Yes' ? 1 : 0;
           } else {
-            backendData[backendFieldName] = parseInt(value.toString());
+            backendData[backendFieldName] = value !== null && value !== undefined && value !== '' ? parseInt(value.toString()) : 0;
           }
         } else if (fieldType === 'float') {
-          backendData[backendFieldName] = parseFloat(value.toString());
+          backendData[backendFieldName] = value !== null && value !== undefined && value !== '' ? parseFloat(value.toString()) : 0.0;
         } else {
           backendData[backendFieldName] = value;
         }
@@ -845,7 +1273,7 @@ const PredictorDetail: React.FC = () => {
 
     switch (field.type) {
       case 'number':
-        const numValue = parseFloat(value) || field.min || 0;
+        const numValue = (value !== null && value !== undefined && value !== '') ? parseFloat(value) : (field.min || 0);
         const showSlider = field.min !== undefined && field.max !== undefined && (field.max - field.min) <= 200;
         
         return (
@@ -872,7 +1300,7 @@ const PredictorDetail: React.FC = () => {
                   <input
                     type="range"
                     value={numValue}
-                    onChange={(e) => handleInputChange(field.name, parseFloat(e.target.value))}
+                    onChange={(e) => handleInputChange(field.name, e.target.value !== '' ? parseFloat(e.target.value) : (field.min || 0))}
                     min={field.min}
                     max={field.max}
                     step={field.step || 1}
@@ -895,7 +1323,7 @@ const PredictorDetail: React.FC = () => {
                 <input
                   type="number"
                   value={value}
-                  onChange={(e) => handleInputChange(field.name, parseFloat(e.target.value) || '')}
+                  onChange={(e) => handleInputChange(field.name, e.target.value !== '' ? parseFloat(e.target.value) : '')}
                   min={field.min}
                   max={field.max}
                   step={field.step || 1}
@@ -1280,7 +1708,7 @@ const PredictorDetail: React.FC = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       {predictor?.fields?.filter(field => 
-                        ['hypertension', 'heart_disease', 'chest_pain_type', 'resting_ecg', 'exercise_angina', 'family_history', 'chronic_illness'].includes(field.name)
+                        ['hypertension', 'heart_disease', 'chest_pain_type', 'resting_ecg', 'exercise_angina', 'family_history', 'chronic_illness', 'family_history_diabetes', 'glucose_level', 'blood_pressure', 'insulin_level', 'pregnancies', 'skin_thickness', 'diabetes_pedigree_function'].includes(field.name)
                       ).map(renderField)}
                     </div>
                   </div>
@@ -1293,7 +1721,7 @@ const PredictorDetail: React.FC = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       {predictor?.fields?.filter(field => 
-                        ['smoking_status', 'sleep_hours', 'stress_level', 'social_support', 'exercise_frequency', 'work_satisfaction', 'substance_use'].includes(field.name)
+                        ['smoking_status', 'sleep_hours', 'stress_level', 'social_support', 'exercise_frequency', 'work_satisfaction', 'substance_use', 'physical_activity', 'alcohol_consumption', 'waist_circumference'].includes(field.name)
                       ).map(renderField)}
                     </div>
                   </div>
@@ -1302,8 +1730,8 @@ const PredictorDetail: React.FC = () => {
                   {predictor?.fields?.filter(field => 
                     !['age', 'gender', 'sex', 'ever_married', 'work_type', 'residence_type', 
                       'resting_bp', 'cholesterol', 'fasting_bs', 'avg_glucose_level', 'bmi', 'max_hr', 'oldpeak',
-                      'hypertension', 'heart_disease', 'chest_pain_type', 'resting_ecg', 'exercise_angina', 'family_history', 'chronic_illness',
-                      'smoking_status', 'sleep_hours', 'stress_level', 'social_support', 'exercise_frequency', 'work_satisfaction', 'substance_use'].includes(field.name)
+                      'hypertension', 'heart_disease', 'chest_pain_type', 'resting_ecg', 'exercise_angina', 'family_history', 'chronic_illness', 'family_history_diabetes', 'glucose_level', 'blood_pressure', 'insulin_level', 'pregnancies', 'skin_thickness', 'diabetes_pedigree_function',
+                      'smoking_status', 'sleep_hours', 'stress_level', 'social_support', 'exercise_frequency', 'work_satisfaction', 'substance_use', 'physical_activity', 'alcohol_consumption', 'waist_circumference'].includes(field.name)
                   ).length > 0 && (
                     <div className="pb-6">
                       <div className="flex items-center gap-2 mb-4">
@@ -1314,8 +1742,8 @@ const PredictorDetail: React.FC = () => {
                         {predictor?.fields?.filter(field => 
                           !['age', 'gender', 'sex', 'ever_married', 'work_type', 'residence_type', 
                             'resting_bp', 'cholesterol', 'fasting_bs', 'avg_glucose_level', 'bmi', 'max_hr', 'oldpeak',
-                            'hypertension', 'heart_disease', 'chest_pain_type', 'resting_ecg', 'exercise_angina', 'family_history', 'chronic_illness',
-                            'smoking_status', 'sleep_hours', 'stress_level', 'social_support', 'exercise_frequency', 'work_satisfaction', 'substance_use'].includes(field.name)
+                            'hypertension', 'heart_disease', 'chest_pain_type', 'resting_ecg', 'exercise_angina', 'family_history', 'chronic_illness', 'family_history_diabetes', 'glucose_level', 'blood_pressure', 'insulin_level', 'pregnancies', 'skin_thickness', 'diabetes_pedigree_function',
+                            'smoking_status', 'sleep_hours', 'stress_level', 'social_support', 'exercise_frequency', 'work_satisfaction', 'substance_use', 'physical_activity', 'alcohol_consumption', 'waist_circumference'].includes(field.name)
                         ).map(renderField)}
                       </div>
                     </div>
