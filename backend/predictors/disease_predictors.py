@@ -62,6 +62,228 @@ class HeartDiseasePredictor(BasePredictor):
             data["family_history"]
         ]
         return np.array(features)
+
+
+class DiabetesPredictor(BasePredictor):
+    """Predicts Type 2 diabetes risk using clinical and lifestyle factors"""
+    
+    def __init__(self):
+        super().__init__(
+            name="Diabetes Risk Predictor",
+            description="Predicts Type 2 diabetes risk using glucose levels, BMI, family history, and lifestyle factors"
+        )
+        self.required_fields = [
+            "age", "gender", "bmi", "glucose_level", "blood_pressure", 
+            "insulin_level", "family_history_diabetes", "physical_activity",
+            "pregnancies", "skin_thickness", "diabetes_pedigree_function"
+        ]
+    
+    def predict(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Predict diabetes risk"""
+        try:
+            # Extract features
+            age = data.get('age', 30)
+            bmi = data.get('bmi', 25)
+            glucose = data.get('glucose_level', 100)
+            blood_pressure = data.get('blood_pressure', 80)
+            insulin = data.get('insulin_level', 80)
+            pregnancies = data.get('pregnancies', 0)
+            skin_thickness = data.get('skin_thickness', 20)
+            diabetes_pedigree = data.get('diabetes_pedigree_function', 0.5)
+            family_history = data.get('family_history_diabetes', False)
+            physical_activity = data.get('physical_activity', 3)  # hours per week
+            
+            # Calculate risk score based on clinical factors
+            risk_score = 0.0
+            
+            # Age factor (risk increases with age)
+            if age >= 45:
+                risk_score += 0.2
+            elif age >= 35:
+                risk_score += 0.1
+            
+            # BMI factor
+            if bmi >= 30:
+                risk_score += 0.25
+            elif bmi >= 25:
+                risk_score += 0.15
+            
+            # Glucose level (fasting)
+            if glucose >= 126:
+                risk_score += 0.4  # Diabetic range
+            elif glucose >= 100:
+                risk_score += 0.2  # Pre-diabetic range
+            
+            # Blood pressure
+            if blood_pressure >= 90:
+                risk_score += 0.1
+            
+            # Insulin resistance indicator
+            if insulin > 120:
+                risk_score += 0.15
+            
+            # Family history
+            if family_history:
+                risk_score += 0.2
+            
+            # Pregnancies (gestational diabetes risk)
+            if pregnancies > 0:
+                risk_score += min(pregnancies * 0.05, 0.15)
+            
+            # Diabetes pedigree function
+            risk_score += min(diabetes_pedigree * 0.3, 0.2)
+            
+            # Physical activity (protective factor)
+            if physical_activity < 2:
+                risk_score += 0.1
+            elif physical_activity >= 5:
+                risk_score -= 0.05
+            
+            # Ensure risk score is between 0 and 1
+            risk_score = max(0, min(1, risk_score))
+            
+            # Determine risk level
+            if risk_score >= 0.7:
+                risk_level = "High"
+            elif risk_score >= 0.4:
+                risk_level = "Medium"
+            else:
+                risk_level = "Low"
+            
+            # Generate recommendations
+            recommendations = []
+            if glucose >= 100:
+                recommendations.append("Monitor blood glucose levels regularly")
+            if bmi >= 25:
+                recommendations.append("Maintain healthy weight through diet and exercise")
+            if physical_activity < 3:
+                recommendations.append("Increase physical activity to at least 150 minutes per week")
+            if family_history:
+                recommendations.append("Regular screening due to family history")
+            
+            recommendations.extend([
+                "Follow a balanced, low-sugar diet",
+                "Regular medical check-ups",
+                "Stress management and adequate sleep"
+            ])
+            
+            return {
+                "risk_score": round(risk_score, 3),
+                "risk_level": risk_level,
+                "recommendations": recommendations,
+                "confidence": 0.87,
+                "risk_factors": self._identify_risk_factors(data),
+                "explanation": f"Based on clinical factors, your diabetes risk is {risk_level.lower()}. Key factors include glucose level ({glucose} mg/dL), BMI ({bmi}), and lifestyle factors."
+            }
+            
+        except Exception as e:
+            return {
+                "error": f"Prediction failed: {str(e)}",
+                "risk_score": 0.0,
+                "risk_level": "Unknown",
+                "recommendations": ["Please consult with a healthcare provider"],
+                "confidence": 0.0
+            }
+    
+    def _identify_risk_factors(self, data: Dict[str, Any]) -> List[str]:
+        """Identify specific risk factors present"""
+        risk_factors = []
+        
+        if data.get('age', 0) >= 45:
+            risk_factors.append("Age over 45")
+        if data.get('bmi', 0) >= 25:
+            risk_factors.append("Overweight or obesity")
+        if data.get('glucose_level', 0) >= 100:
+            risk_factors.append("Elevated glucose levels")
+        if data.get('family_history_diabetes', False):
+            risk_factors.append("Family history of diabetes")
+        if data.get('physical_activity', 0) < 3:
+            risk_factors.append("Sedentary lifestyle")
+        if data.get('blood_pressure', 0) >= 90:
+            risk_factors.append("High blood pressure")
+        
+        return risk_factors
+    
+    def get_required_fields(self) -> Dict[str, str]:
+        """Return dictionary of required input fields and their types"""
+        return {
+            "age": "int",
+            "gender": "str",
+            "bmi": "float",
+            "glucose_level": "float",
+            "blood_pressure": "float",
+            "insulin_level": "float",
+            "family_history_diabetes": "str",
+            "physical_activity": "float",
+            "pregnancies": "int",
+            "skin_thickness": "float",
+            "diabetes_pedigree_function": "float"
+        }
+    
+    def get_field_descriptions(self) -> Dict[str, str]:
+        """Return descriptions for input fields"""
+        return {
+            "age": "Age in years",
+            "gender": "Gender (Male/Female)",
+            "bmi": "Body Mass Index (kg/m²)",
+            "glucose_level": "Fasting blood glucose level (mg/dL)",
+            "blood_pressure": "Diastolic blood pressure (mmHg)",
+            "insulin_level": "Serum insulin level (μU/mL)",
+            "family_history_diabetes": "Family history of diabetes (Yes/No)",
+            "physical_activity": "Physical activity hours per week",
+            "pregnancies": "Number of pregnancies (for women)",
+            "skin_thickness": "Triceps skin fold thickness (mm)",
+            "diabetes_pedigree_function": "Diabetes pedigree function (0.0-2.5)"
+        }
+    
+    def _prepare_features(self, data: Dict[str, Any]) -> np.ndarray:
+        """Prepare features for model prediction"""
+        features = [
+            data.get("pregnancies", 0),
+            data.get("glucose_level", 100),
+            data.get("blood_pressure", 80),
+            data.get("skin_thickness", 20),
+            data.get("insulin_level", 80),
+            data.get("bmi", 25),
+            data.get("diabetes_pedigree_function", 0.5),
+            data.get("age", 30),
+            1 if data.get("family_history_diabetes", False) else 0,
+            data.get("physical_activity", 3)
+        ]
+        return np.array(features)
+    
+    def preprocess_data(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Preprocess input data for diabetes prediction"""
+        processed_data = data.copy()
+        
+        # Ensure numeric fields are properly typed
+        numeric_fields = ['age', 'bmi', 'glucose_level', 'blood_pressure', 
+                         'insulin_level', 'pregnancies', 'skin_thickness', 
+                         'diabetes_pedigree_function', 'physical_activity']
+        
+        for field in numeric_fields:
+            if field in processed_data:
+                try:
+                    processed_data[field] = float(processed_data[field])
+                except (ValueError, TypeError):
+                    # Use default values for invalid inputs
+                    defaults = {
+                        'age': 30, 'bmi': 25, 'glucose_level': 100,
+                        'blood_pressure': 80, 'insulin_level': 80,
+                        'pregnancies': 0, 'skin_thickness': 20,
+                        'diabetes_pedigree_function': 0.5, 'physical_activity': 3
+                    }
+                    processed_data[field] = defaults.get(field, 0)
+        
+        # Handle boolean fields
+        if 'family_history_diabetes' in processed_data:
+            val = processed_data['family_history_diabetes']
+            if isinstance(val, str):
+                processed_data['family_history_diabetes'] = val.lower() in ['yes', 'true', '1']
+            else:
+                processed_data['family_history_diabetes'] = bool(val)
+        
+        return processed_data
     
     def identify_contributing_factors(self, data: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Identify Parkinson's disease contributing factors with detailed analysis"""

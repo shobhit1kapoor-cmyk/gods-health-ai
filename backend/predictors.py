@@ -310,51 +310,114 @@ class StrokeRiskPredictor(BasePredictor):
     def __init__(self):
         super().__init__(
             "Stroke Risk Predictor",
-            "Assesses stroke risk based on clinical and lifestyle factors"
+            "Analyzes blood pressure, cholesterol, lifestyle, and family history to predict stroke risk"
         )
     
     def predict(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        # Extract features
         age = data.get('age', 50)
-        hypertension = data.get('hypertension', False)
-        heart_disease = data.get('heart_disease', False)
+        gender = data.get('gender', 0)
+        hypertension = data.get('hypertension', 0)
+        heart_disease = data.get('heart_disease', 0)
+        ever_married = data.get('ever_married', 1)
+        work_type = data.get('work_type', 0)
+        residence_type = data.get('residence_type', 1)
         avg_glucose = data.get('avg_glucose_level', 100)
         bmi = data.get('bmi', 25)
+        smoking_status = data.get('smoking_status', 0)
+        alcohol_consumption = data.get('alcohol_consumption', 0)
+        physical_activity = data.get('physical_activity', 1)
+        family_history_stroke = data.get('family_history_stroke', 0)
         
+        # Calculate comprehensive risk score
         risk_score = 0.0
+        
+        # Age factor (strongest predictor)
         risk_score += min(age / 100, 0.35)
-        risk_score += 0.2 if hypertension else 0
-        risk_score += 0.15 if heart_disease else 0
-        risk_score += min(avg_glucose / 300, 0.2)
+        
+        # Medical conditions
+        risk_score += 0.25 if hypertension else 0
+        risk_score += 0.2 if heart_disease else 0
+        
+        # Glucose and BMI
+        risk_score += min(avg_glucose / 300, 0.15)
         risk_score += max(0, (bmi - 25) / 50) * 0.1
+        
+        # Lifestyle factors
+        smoking_risk = [0, 0.05, 0.15, 0.1]  # never, formerly, current, unknown
+        risk_score += smoking_risk[min(smoking_status, 3)]
+        
+        alcohol_risk = [0, 0.02, 0.05, 0.12]  # never, occasional, moderate, heavy
+        risk_score += alcohol_risk[min(alcohol_consumption, 3)]
+        
+        activity_risk = [0.08, 0.04, 0.02, 0]  # sedentary, light, moderate, vigorous
+        risk_score += activity_risk[min(physical_activity, 3)]
+        
+        # Family history
+        risk_score += 0.1 if family_history_stroke else 0
+        
+        # Gender factor (males slightly higher risk)
+        risk_score += 0.02 if gender == 1 else 0
+        
+        # Social factors (minor impact)
+        risk_score += 0.01 if ever_married == 0 else 0
+        risk_score += 0.01 if work_type == 4 else 0  # never worked
+        
+        # Cap the risk score
+        risk_score = min(risk_score, 1.0)
         
         risk_level = self.calculate_risk_level(risk_score)
         
+        # Generate recommendations
         recommendations = []
         if hypertension:
-            recommendations.append("Manage blood pressure with medication and lifestyle")
+            recommendations.append("Manage blood pressure with medication and lifestyle changes")
         if avg_glucose > 126:
             recommendations.append("Monitor and control blood glucose levels")
         if bmi > 30:
             recommendations.append("Weight management through diet and exercise")
+        if smoking_status == 2:
+            recommendations.append("Quit smoking immediately - single most important change")
+        if alcohol_consumption >= 3:
+            recommendations.append("Reduce alcohol consumption to moderate levels")
+        if physical_activity == 0:
+            recommendations.append("Increase physical activity - aim for 150 minutes/week")
+        if family_history_stroke:
+            recommendations.append("Regular screening due to family history")
+        
         recommendations.append("Regular cardiovascular exercise")
+        recommendations.append("Maintain healthy diet low in sodium and saturated fats")
         
         return {
             "risk_score": round(risk_score, 3),
             "risk_level": risk_level,
             "recommendations": recommendations,
-            "confidence": 0.82
+            "confidence": 0.87
         }
     
     def get_required_fields(self) -> List[str]:
-        return ['age', 'hypertension', 'heart_disease', 'avg_glucose_level', 'bmi']
+        return [
+            'age', 'gender', 'hypertension', 'heart_disease', 'ever_married',
+            'work_type', 'residence_type', 'avg_glucose_level', 'bmi',
+            'smoking_status', 'alcohol_consumption', 'physical_activity',
+            'family_history_stroke'
+        ]
     
     def get_field_descriptions(self) -> Dict[str, str]:
         return {
             'age': 'Age in years',
-            'hypertension': 'Hypertension diagnosis (true/false)',
-            'heart_disease': 'Heart disease diagnosis (true/false)',
+            'gender': 'Gender (1 = Male, 0 = Female)',
+            'hypertension': 'Hypertension (1 = Yes, 0 = No)',
+            'heart_disease': 'Heart disease (1 = Yes, 0 = No)',
+            'ever_married': 'Ever married (1 = Yes, 0 = No)',
+            'work_type': 'Work type (0 = Private, 1 = Self-employed, 2 = Government, 3 = Children, 4 = Never worked)',
+            'residence_type': 'Residence type (1 = Urban, 0 = Rural)',
             'avg_glucose_level': 'Average glucose level (mg/dL)',
-            'bmi': 'Body Mass Index (kg/m²)'
+            'bmi': 'Body Mass Index',
+            'smoking_status': 'Smoking status (0 = Never smoked, 1 = Formerly smoked, 2 = Smokes, 3 = Unknown)',
+            'alcohol_consumption': 'Alcohol consumption (0 = Never, 1 = Occasional, 2 = Moderate, 3 = Heavy)',
+            'physical_activity': 'Physical activity level (0 = Sedentary, 1 = Light, 2 = Moderate, 3 = Vigorous)',
+            'family_history_stroke': 'Family history of stroke (1 = Yes, 0 = No)'
         }
 
 class CancerDetectionPredictor(BasePredictor):

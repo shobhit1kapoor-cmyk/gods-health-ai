@@ -42,20 +42,31 @@ class BasePredictor(ABC):
             if field not in data:
                 raise ValueError(f"Missing required field: {field}")
             
+            # Handle None values by providing defaults
+            if data[field] is None:
+                expected_type = required_fields[field]
+                if expected_type == 'float':
+                    data[field] = 0.0
+                elif expected_type == 'int':
+                    data[field] = 0
+                elif expected_type == 'str':
+                    data[field] = ""
+                continue
+            
             # Type validation
             expected_type = required_fields[field]
             if expected_type == 'float' and not isinstance(data[field], (int, float)):
                 try:
-                    data[field] = float(data[field])
-                except ValueError:
-                    raise ValueError(f"Field {field} must be a number")
+                    data[field] = float(data[field]) if data[field] is not None and data[field] != "" else 0.0
+                except (ValueError, TypeError):
+                    data[field] = 0.0  # Default to 0 if conversion fails
             elif expected_type == 'int' and not isinstance(data[field], int):
                 try:
-                    data[field] = int(data[field])
-                except ValueError:
-                    raise ValueError(f"Field {field} must be an integer")
+                    data[field] = int(data[field]) if data[field] is not None and data[field] != "" else 0
+                except (ValueError, TypeError):
+                    data[field] = 0  # Default to 0 if conversion fails
             elif expected_type == 'str' and not isinstance(data[field], str):
-                data[field] = str(data[field])
+                data[field] = str(data[field]) if data[field] is not None else ""
         
         return True
     

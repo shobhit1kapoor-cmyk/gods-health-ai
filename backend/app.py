@@ -14,6 +14,7 @@ from predictors import (
     LiverDiseasePredictor,
     AlzheimerPredictor,
     ParkinsonPredictor,
+    DiabetesPredictor,
     # Condition & Complication Predictors
     SepsisPredictor,
     HospitalReadmissionPredictor,
@@ -54,6 +55,7 @@ predictors = {
     "liver_disease": LiverDiseasePredictor(),
     "alzheimer": AlzheimerPredictor(),
     "parkinson": ParkinsonPredictor(),
+    "diabetes": DiabetesPredictor(),
     
     # Condition & Complication Predictors
     "sepsis": SepsisPredictor(),

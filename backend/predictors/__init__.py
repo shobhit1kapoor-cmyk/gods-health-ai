@@ -6,7 +6,8 @@ from .disease_predictors import (
     KidneyDiseasePredictor,
     LiverDiseasePredictor,
     AlzheimerPredictor,
-    ParkinsonPredictor
+    ParkinsonPredictor,
+    DiabetesPredictor
 )
 from .condition_predictors import (
     SepsisPredictor,
@@ -40,6 +41,7 @@ __all__ = [
     "LiverDiseasePredictor",
     "AlzheimerPredictor",
     "ParkinsonPredictor",
+    "DiabetesPredictor",
     # Condition & Complication Predictors
     "SepsisPredictor",
     "HospitalReadmissionPredictor",

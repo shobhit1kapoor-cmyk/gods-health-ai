@@ -105,152 +105,198 @@ class SepsisPredictor(BasePredictor):
         ]
         return np.array(features)
     
-    def identify_contributing_factors(self, data: Dict[str, Any], prediction_result: Dict[str, Any]) -> List[str]:
-        """Identify key factors contributing to pregnancy complication risk"""
+    def identify_contributing_factors(self, data: Dict[str, Any]) -> List[str]:
+        """Identify key factors contributing to sepsis risk"""
         factors = []
         
-        # Maternal age factors
-        if data.get("maternal_age", 0) < 18:
-            factors.append("Young maternal age associated with increased pregnancy risks")
-        elif data.get("maternal_age", 0) > 35:
-            factors.append("Advanced maternal age increasing risk of complications")
+        # Age factors
+        if data.get("age", 0) > 65:
+            factors.append("Advanced age increasing sepsis risk and mortality")
+        elif data.get("age", 0) < 1:
+            factors.append("Very young age with immature immune system")
         
-        # Pre-pregnancy health status
-        if data.get("pre_pregnancy_bmi", 0) > 30:
-            factors.append("Pre-pregnancy obesity increasing risk of gestational diabetes and hypertension")
-        elif data.get("pre_pregnancy_bmi", 0) < 18.5:
-            factors.append("Pre-pregnancy underweight status affecting fetal growth")
+        # Vital signs abnormalities
+        if data.get("heart_rate", 0) > 100:
+            factors.append("Tachycardia suggesting systemic inflammatory response")
+        elif data.get("heart_rate", 0) < 60:
+            factors.append("Bradycardia potentially indicating severe sepsis")
+        
+        if data.get("respiratory_rate", 0) > 22:
+            factors.append("Tachypnea indicating respiratory distress or compensation")
+        
+        if data.get("temperature", 0) > 38.3 or data.get("temperature", 0) < 36.0:
+            factors.append("Abnormal body temperature suggesting infection")
         
         # Blood pressure concerns
-        if data.get("systolic_bp", 0) > 140 or data.get("diastolic_bp", 0) > 90:
-            factors.append("Elevated blood pressure suggesting preeclampsia risk")
+        if data.get("systolic_bp", 0) < 90 or data.get("mean_arterial_pressure", 0) < 65:
+            factors.append("Hypotension indicating possible septic shock")
         
-        # Proteinuria
-        if data.get("proteinuria", 0) >= 2:
-            factors.append("Significant proteinuria indicating possible preeclampsia")
+        # Oxygen saturation
+        if data.get("spo2", 0) < 95:
+            factors.append("Low oxygen saturation suggesting respiratory compromise")
         
-        # Glucose metabolism
-        if data.get("glucose_tolerance_test", 0) > 140:
-            factors.append("Abnormal glucose tolerance suggesting gestational diabetes risk")
+        # Laboratory abnormalities
+        if data.get("white_blood_cells", 0) > 12 or data.get("white_blood_cells", 0) < 4:
+            factors.append("Abnormal white blood cell count indicating immune response")
         
-        # Pre-existing conditions
-        if data.get("diabetes_pre_pregnancy", 0) == 1:
-            factors.append("Pre-existing diabetes requiring intensive monitoring")
+        if data.get("lactate", 0) > 2.0:
+            factors.append("Elevated lactate suggesting tissue hypoperfusion")
         
-        if data.get("chronic_hypertension", 0) == 1:
-            factors.append("Chronic hypertension increasing preeclampsia risk")
+        if data.get("creatinine", 0) > 1.5:
+            factors.append("Elevated creatinine indicating kidney dysfunction")
         
-        # Family history
-        if data.get("family_history_diabetes", 0) == 1:
-            factors.append("Family history of diabetes increasing gestational diabetes risk")
+        if data.get("platelets", 0) < 100:
+            factors.append("Low platelet count suggesting coagulation dysfunction")
         
-        if data.get("family_history_hypertension", 0) == 1:
-            factors.append("Family history of hypertension increasing pregnancy hypertension risk")
+        # Glucose abnormalities
+        if data.get("glucose", 0) > 180:
+            factors.append("Hyperglycemia associated with stress response and poor outcomes")
         
-        # Lifestyle factors
-        if data.get("smoking", 0) == 1:
-            factors.append("Smoking during pregnancy affecting fetal development")
+        # Electrolyte imbalances
+        if data.get("sodium", 0) < 135 or data.get("sodium", 0) > 145:
+            factors.append("Sodium imbalance indicating fluid and electrolyte disturbance")
         
-        if data.get("alcohol_use", 0) == 1:
-            factors.append("Alcohol use during pregnancy posing fetal risks")
+        if data.get("potassium", 0) < 3.5 or data.get("potassium", 0) > 5.0:
+            factors.append("Potassium imbalance affecting cardiac and muscle function")
         
-        # Pregnancy characteristics
-        if data.get("multiple_pregnancy", 0) == 1:
-            factors.append("Multiple pregnancy (twins/multiples) increasing complication risk")
+        # Coagulation abnormalities
+        if data.get("ptt", 0) > 40:
+            factors.append("Prolonged clotting time suggesting coagulopathy")
         
-        if data.get("previous_complications", 0) == 1:
-            factors.append("History of previous pregnancy complications")
+        # Cardiac markers
+        if data.get("troponin", 0) > 0.1:
+            factors.append("Elevated troponin indicating cardiac stress or damage")
         
         return factors
     
     def analyze_health_metrics(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze key health metrics for pregnancy complication assessment"""
+        """Analyze key health metrics for sepsis risk assessment"""
         analysis = {
-            "pregnancy_risk": "low",
+            "sepsis_risk": "low",
             "monitoring_level": "routine",
-            "complication_risks": [],
+            "risk_indicators": [],
             "intervention_needs": []
         }
         
         # Risk stratification
         risk_factors = 0
         
-        # Age risk
-        if data.get("maternal_age", 0) > 35 or data.get("maternal_age", 0) < 18:
-            risk_factors += 1
+        # Age risk (elderly and very young at higher risk)
+        age = data.get("age", 0)
+        if age > 65 or age < 1:
+            risk_factors += 2
+        elif age > 75:
+            risk_factors += 3
         
-        # BMI risk
-        if data.get("pre_pregnancy_bmi", 0) > 30 or data.get("pre_pregnancy_bmi", 0) < 18.5:
-            risk_factors += 1
-        
-        # Pre-existing conditions
-        if data.get("diabetes_pre_pregnancy", 0) == 1 or data.get("chronic_hypertension", 0) == 1:
+        # Vital signs abnormalities
+        temp = data.get("temperature", 98.6)
+        if temp > 101.3 or temp < 96.8:  # Fever or hypothermia
             risk_factors += 2
         
-        # Current pregnancy issues
-        if data.get("systolic_bp", 0) > 140 or data.get("proteinuria", 0) >= 2:
+        heart_rate = data.get("heart_rate", 70)
+        if heart_rate > 90:  # Tachycardia
+            risk_factors += 1
+        
+        respiratory_rate = data.get("respiratory_rate", 16)
+        if respiratory_rate > 20:  # Tachypnea
+            risk_factors += 1
+        
+        # Blood pressure abnormalities
+        systolic_bp = data.get("systolic_bp", 120)
+        if systolic_bp < 90:  # Hypotension
             risk_factors += 2
         
-        if data.get("glucose_tolerance_test", 0) > 140:
+        # Oxygen saturation
+        oxygen_sat = data.get("oxygen_saturation", 98)
+        if oxygen_sat < 95:
+            risk_factors += 2
+        
+        # Laboratory abnormalities
+        wbc = data.get("white_blood_cell_count", 7000)
+        if wbc > 12000 or wbc < 4000:
+            risk_factors += 2
+        
+        lactate = data.get("lactate", 1.0)
+        if lactate > 2.0:
+            risk_factors += 2
+        
+        # Organ dysfunction indicators
+        creatinine = data.get("creatinine", 1.0)
+        if creatinine > 2.0:
+            risk_factors += 2
+        
+        bilirubin = data.get("bilirubin", 1.0)
+        if bilirubin > 2.0:
             risk_factors += 1
         
         # Risk level assignment
-        if risk_factors >= 4:
-            analysis["pregnancy_risk"] = "high"
+        if risk_factors >= 6:
+            analysis["sepsis_risk"] = "high"
             analysis["monitoring_level"] = "intensive"
-        elif risk_factors >= 2:
-            analysis["pregnancy_risk"] = "moderate"
+        elif risk_factors >= 3:
+            analysis["sepsis_risk"] = "moderate"
             analysis["monitoring_level"] = "increased"
         
-        # Specific complication risks
-        if data.get("systolic_bp", 0) > 140 or data.get("proteinuria", 0) >= 1:
-            analysis["complication_risks"].append("Preeclampsia")
+        # Specific risk indicators
+        if temp > 101.3 or temp < 96.8:
+            analysis["risk_indicators"].append("Temperature dysregulation")
         
-        if data.get("glucose_tolerance_test", 0) > 140 or data.get("family_history_diabetes", 0) == 1:
-            analysis["complication_risks"].append("Gestational diabetes")
+        if heart_rate > 90 and respiratory_rate > 20:
+            analysis["risk_indicators"].append("SIRS criteria met")
         
-        if data.get("multiple_pregnancy", 0) == 1:
-            analysis["complication_risks"].append("Preterm delivery")
+        if systolic_bp < 90:
+            analysis["risk_indicators"].append("Hypotension/shock")
+        
+        if lactate > 2.0:
+            analysis["risk_indicators"].append("Elevated lactate")
+        
+        if wbc > 12000 or wbc < 4000:
+            analysis["risk_indicators"].append("Abnormal white blood cell count")
         
         # Intervention needs
-        if data.get("pre_pregnancy_bmi", 0) > 30:
-            analysis["intervention_needs"].append("Nutritional counseling")
+        if analysis["sepsis_risk"] == "high":
+            analysis["intervention_needs"].append("Immediate antibiotic therapy")
+            analysis["intervention_needs"].append("Fluid resuscitation")
+            analysis["intervention_needs"].append("ICU monitoring")
+        elif analysis["sepsis_risk"] == "moderate":
+            analysis["intervention_needs"].append("Close monitoring")
+            analysis["intervention_needs"].append("Consider antibiotic therapy")
         
-        if data.get("smoking", 0) == 1:
-            analysis["intervention_needs"].append("Smoking cessation support")
+        if systolic_bp < 90:
+            analysis["intervention_needs"].append("Vasopressor support")
         
         return analysis
     
     def assess_lifestyle_impact(self, data: Dict[str, Any]) -> Dict[str, str]:
-        """Assess lifestyle factors affecting pregnancy outcomes"""
+        """Assess lifestyle factors affecting sepsis risk and prevention"""
         recommendations = {}
         
-        # Nutrition and weight management
-        if data.get("pre_pregnancy_bmi", 0) > 30:
-            recommendations["weight_management"] = "Focus on healthy weight gain within recommended limits and balanced nutrition"
-        elif data.get("pre_pregnancy_bmi", 0) < 18.5:
-            recommendations["nutrition"] = "Ensure adequate caloric intake and weight gain for healthy fetal development"
+        # Immune system support
+        age = data.get("age", 0)
+        if age > 65:
+            recommendations["immune_support"] = "Maintain vaccinations up to date, especially pneumonia and flu vaccines to prevent infections"
         
-        # Smoking cessation
-        if data.get("smoking", 0) == 1:
-            recommendations["smoking_cessation"] = "Immediate smoking cessation is crucial for fetal health and reducing complications"
+        # Chronic disease management
+        if data.get("diabetes", 0) == 1:
+            recommendations["diabetes_management"] = "Maintain strict blood sugar control to reduce infection risk and improve immune function"
         
-        # Alcohol avoidance
-        if data.get("alcohol_use", 0) == 1:
-            recommendations["alcohol_avoidance"] = "Complete alcohol avoidance during pregnancy to prevent fetal alcohol spectrum disorders"
+        if data.get("chronic_kidney_disease", 0) == 1:
+            recommendations["kidney_care"] = "Follow nephrology care plan and monitor for signs of infection or complications"
         
-        # Blood pressure monitoring
-        if data.get("systolic_bp", 0) > 130:
-            recommendations["bp_monitoring"] = "Regular blood pressure monitoring and lifestyle modifications to prevent preeclampsia"
+        if data.get("immunocompromised", 0) == 1:
+            recommendations["infection_prevention"] = "Practice strict hygiene, avoid crowds during illness seasons, and seek immediate care for any signs of infection"
         
-        # Diabetes management
-        if data.get("glucose_tolerance_test", 0) > 140 or data.get("diabetes_pre_pregnancy", 0) == 1:
-            recommendations["glucose_control"] = "Strict blood sugar monitoring, dietary management, and regular medical follow-up"
+        # Wound and catheter care
+        if data.get("recent_surgery", 0) == 1:
+            recommendations["wound_care"] = "Follow proper wound care instructions, keep surgical sites clean and dry, and monitor for signs of infection"
         
-        # General pregnancy care
-        recommendations["prenatal_care"] = "Attend all scheduled prenatal appointments for optimal monitoring and care"
-        recommendations["activity"] = "Maintain appropriate physical activity as recommended by healthcare provider"
-        recommendations["stress_management"] = "Practice stress reduction techniques and ensure adequate rest"
+        if data.get("indwelling_catheter", 0) == 1:
+            recommendations["catheter_care"] = "Maintain proper catheter hygiene and follow healthcare provider instructions for care and monitoring"
+        
+        # General infection prevention
+        recommendations["hygiene"] = "Practice frequent hand washing, maintain good personal hygiene, and avoid contact with sick individuals"
+        recommendations["medical_care"] = "Seek prompt medical attention for any signs of infection, fever, or unusual symptoms"
+        recommendations["medication_compliance"] = "Take all prescribed medications as directed and complete full courses of antibiotics when prescribed"
         
         return recommendations
         

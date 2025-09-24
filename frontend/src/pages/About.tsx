@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 // Force deployment update
 import {
@@ -361,13 +362,13 @@ const About: React.FC = () => {
               Join thousands of users who are taking control of their health with AI-powered insights.
             </p>
             <div className="flex justify-center">
-              <a
-                href="/predictors"
+              <Link
+                to="/predictors"
                 className="inline-flex items-center bg-white text-primary-600 hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg transition-colors duration-200"
               >
                 <Zap className="mr-2 h-5 w-5" />
                 Try Our Predictors
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>

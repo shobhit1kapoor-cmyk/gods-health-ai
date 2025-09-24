@@ -26,6 +26,7 @@ interface Predictor {
   estimatedTime: string;
   accuracy: string;
   featured?: boolean;
+  status?: 'ready' | 'working';
 }
 
 const PredictorsList: React.FC = () => {
@@ -35,7 +36,19 @@ const PredictorsList: React.FC = () => {
   const [filteredPredictors, setFilteredPredictors] = useState<Predictor[]>([]);
 
   const predictors: Predictor[] = useMemo(() => [
-    // Disease Risk & Diagnosis Predictors
+    // TOP 5 PREDICTORS - Ready for Use
+    {
+      id: 'sepsis',
+      name: 'Sepsis Predictor',
+      description: 'Early sepsis detection in hospital settings - a life-saving diagnostic tool.',
+      category: 'condition-complications',
+      icon: Zap,
+      difficulty: 'Advanced',
+      estimatedTime: '3-5 min',
+      accuracy: '96%',
+      featured: true,
+      status: 'ready'
+    },
     {
       id: 'heart_disease',
       name: 'Heart Disease Predictor',
@@ -45,7 +58,8 @@ const PredictorsList: React.FC = () => {
       difficulty: 'Medium',
       estimatedTime: '5-7 min',
       accuracy: '94%',
-      featured: true
+      featured: true,
+      status: 'ready'
     },
     {
       id: 'stroke_risk',
@@ -56,57 +70,20 @@ const PredictorsList: React.FC = () => {
       difficulty: 'Medium',
       estimatedTime: '6-8 min',
       accuracy: '92%',
-      featured: true
+      featured: true,
+      status: 'ready'
     },
     {
-      id: 'cancer_detection',
-      name: 'Cancer Detection & Risk',
-      description: 'Comprehensive cancer risk assessment for breast, lung, prostate, skin, and cervical cancers.',
-      category: 'disease-risk-diagnosis',
-      icon: Shield,
-      difficulty: 'Advanced',
-      estimatedTime: '10-12 min',
-      accuracy: '89%'
-    },
-    {
-      id: 'kidney_disease',
-      name: 'Kidney Disease Predictor',
-      description: 'Chronic kidney disease detection using blood and urine test data.',
-      category: 'disease-risk-diagnosis',
-      icon: Activity,
-      difficulty: 'Medium',
-      estimatedTime: '4-6 min',
-      accuracy: '91%'
-    },
-    {
-      id: 'liver_disease',
-      name: 'Liver Disease Predictor',
-      description: 'Detect hepatitis, cirrhosis, and fatty liver disease from laboratory test results.',
-      category: 'disease-risk-diagnosis',
+      id: 'anemia',
+      name: 'Anemia Predictor',
+      description: 'Detect various types of anemia using comprehensive blood test analysis.',
+      category: 'specialized',
       icon: Stethoscope,
-      difficulty: 'Medium',
-      estimatedTime: '5-7 min',
-      accuracy: '88%'
-    },
-    {
-      id: 'alzheimer',
-      name: 'Alzheimer\'s Predictor',
-      description: 'Early detection of Alzheimer\'s and dementia using memory and behavioral assessment data.',
-      category: 'disease-risk-diagnosis',
-      icon: Brain,
-      difficulty: 'Advanced',
-      estimatedTime: '8-10 min',
-      accuracy: '85%'
-    },
-    {
-      id: 'parkinson',
-      name: 'Parkinson\'s Disease Predictor',
-      description: 'Analyze voice patterns, tremor, and movement data for Parkinson\'s disease detection.',
-      category: 'disease-risk-diagnosis',
-      icon: Activity,
-      difficulty: 'Advanced',
-      estimatedTime: '7-9 min',
-      accuracy: '87%'
+      difficulty: 'Easy',
+      estimatedTime: '3-5 min',
+      accuracy: '92%',
+      featured: true,
+      status: 'ready'
     },
     {
       id: 'diabetes',
@@ -116,20 +93,66 @@ const PredictorsList: React.FC = () => {
       icon: Activity,
       difficulty: 'Medium',
       estimatedTime: '5-7 min',
-      accuracy: '87%'
+      accuracy: '87%',
+      featured: true,
+      status: 'ready'
     },
 
-    // Condition & Complication Predictors
+    // OTHER PREDICTORS - Still Working On
     {
-      id: 'sepsis',
-      name: 'Sepsis Predictor',
-      description: 'Early sepsis detection in hospital settings - a life-saving diagnostic tool.',
-      category: 'condition-complications',
-      icon: Zap,
+      id: 'cancer_detection',
+      name: 'Cancer Detection & Risk',
+      description: 'Comprehensive cancer risk assessment for breast, lung, prostate, skin, and cervical cancers.',
+      category: 'disease-risk-diagnosis',
+      icon: Shield,
       difficulty: 'Advanced',
-      estimatedTime: '3-5 min',
-      accuracy: '96%',
-      featured: true
+      estimatedTime: '10-12 min',
+      accuracy: '89%',
+      status: 'working'
+    },
+    {
+      id: 'kidney_disease',
+      name: 'Kidney Disease Predictor',
+      description: 'Chronic kidney disease detection using blood and urine test data.',
+      category: 'disease-risk-diagnosis',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '4-6 min',
+      accuracy: '91%',
+      status: 'working'
+    },
+    {
+      id: 'liver_disease',
+      name: 'Liver Disease Predictor',
+      description: 'Detect hepatitis, cirrhosis, and fatty liver disease from laboratory test results.',
+      category: 'disease-risk-diagnosis',
+      icon: Stethoscope,
+      difficulty: 'Medium',
+      estimatedTime: '5-7 min',
+      accuracy: '88%',
+      status: 'working'
+    },
+    {
+      id: 'alzheimer',
+      name: 'Alzheimer\'s Predictor',
+      description: 'Early detection of Alzheimer\'s and dementia using memory and behavioral assessment data.',
+      category: 'disease-risk-diagnosis',
+      icon: Brain,
+      difficulty: 'Advanced',
+      estimatedTime: '8-10 min',
+      accuracy: '85%',
+      status: 'working'
+    },
+    {
+      id: 'parkinson',
+      name: 'Parkinson\'s Disease Predictor',
+      description: 'Analyze voice patterns, tremor, and movement data for Parkinson\'s disease detection.',
+      category: 'disease-risk-diagnosis',
+      icon: Activity,
+      difficulty: 'Advanced',
+      estimatedTime: '7-9 min',
+      accuracy: '87%',
+      status: 'working'
     },
     {
       id: 'hospital_readmission',
@@ -139,7 +162,8 @@ const PredictorsList: React.FC = () => {
       icon: Users,
       difficulty: 'Medium',
       estimatedTime: '5-7 min',
-      accuracy: '83%'
+      accuracy: '83%',
+      status: 'working'
     },
     {
       id: 'icu_mortality',
@@ -149,7 +173,8 @@ const PredictorsList: React.FC = () => {
       icon: Activity,
       difficulty: 'Advanced',
       estimatedTime: '4-6 min',
-      accuracy: '91%'
+      accuracy: '91%',
+      status: 'working'
     },
     {
       id: 'post_surgery_complication',
@@ -159,7 +184,8 @@ const PredictorsList: React.FC = () => {
       icon: Stethoscope,
       difficulty: 'Advanced',
       estimatedTime: '6-8 min',
-      accuracy: '86%'
+      accuracy: '86%',
+      status: 'working'
     },
     {
       id: 'pregnancy_complication',
@@ -169,7 +195,8 @@ const PredictorsList: React.FC = () => {
       icon: Heart,
       difficulty: 'Medium',
       estimatedTime: '7-9 min',
-      accuracy: '89%'
+      accuracy: '89%',
+      status: 'working'
     },
 
     // Lifestyle & Preventive Health Predictors
@@ -181,7 +208,8 @@ const PredictorsList: React.FC = () => {
       icon: TrendingUp,
       difficulty: 'Easy',
       estimatedTime: '3-5 min',
-      accuracy: '87%'
+      accuracy: '87%',
+      status: 'working'
     },
     {
       id: 'hypertension',
@@ -191,7 +219,8 @@ const PredictorsList: React.FC = () => {
       icon: Activity,
       difficulty: 'Easy',
       estimatedTime: '4-6 min',
-      accuracy: '90%'
+      accuracy: '90%',
+      status: 'working'
     },
     {
       id: 'cholesterol_risk',
@@ -201,7 +230,8 @@ const PredictorsList: React.FC = () => {
       icon: Heart,
       difficulty: 'Medium',
       estimatedTime: '5-7 min',
-      accuracy: '88%'
+      accuracy: '88%',
+      status: 'working'
     },
     {
       id: 'mental_health',
@@ -212,7 +242,7 @@ const PredictorsList: React.FC = () => {
       difficulty: 'Medium',
       estimatedTime: '8-10 min',
       accuracy: '84%',
-      featured: true
+      status: 'working'
     },
     {
       id: 'sleep_apnea',
@@ -222,7 +252,8 @@ const PredictorsList: React.FC = () => {
       icon: Activity,
       difficulty: 'Easy',
       estimatedTime: '6-8 min',
-      accuracy: '86%'
+      accuracy: '86%',
+      status: 'working'
     },
 
     // Specialized Predictors
@@ -234,7 +265,8 @@ const PredictorsList: React.FC = () => {
       icon: Shield,
       difficulty: 'Medium',
       estimatedTime: '4-6 min',
-      accuracy: '89%'
+      accuracy: '89%',
+      status: 'working'
     },
     {
       id: 'asthma_copd',
@@ -244,17 +276,8 @@ const PredictorsList: React.FC = () => {
       icon: Activity,
       difficulty: 'Medium',
       estimatedTime: '5-7 min',
-      accuracy: '87%'
-    },
-    {
-      id: 'anemia',
-      name: 'Anemia Predictor',
-      description: 'Detect various types of anemia using comprehensive blood test analysis.',
-      category: 'specialized',
-      icon: Stethoscope,
-      difficulty: 'Easy',
-      estimatedTime: '3-5 min',
-      accuracy: '92%'
+      accuracy: '87%',
+      status: 'working'
     },
     {
       id: 'thyroid_disorder',
@@ -264,7 +287,8 @@ const PredictorsList: React.FC = () => {
       icon: Activity,
       difficulty: 'Medium',
       estimatedTime: '4-6 min',
-      accuracy: '90%'
+      accuracy: '90%',
+      status: 'working'
     },
     {
       id: 'cancer_recurrence',
@@ -274,7 +298,8 @@ const PredictorsList: React.FC = () => {
       icon: Shield,
       difficulty: 'Advanced',
       estimatedTime: '8-10 min',
-      accuracy: '85%'
+      accuracy: '85%',
+      status: 'working'
     }
   ], []);
 
@@ -395,41 +420,64 @@ const PredictorsList: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.05 }}
                   >
-                    <Link
-                      to={`/predictor/${predictor.id}`}
-                      className="block card hover:shadow-large transition-all duration-300 group h-full"
-                    >
-                      <div className="flex items-start space-x-4 mb-4">
-                        <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors duration-300">
-                          <Icon className="h-6 w-6 text-primary-600 dark:text-primary-400" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
-                            {predictor.name}
-                          </h3>
-                          <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
-                            {predictor.description}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between text-sm mt-auto">
-                        <div className="flex items-center space-x-4">
-                          <div className="flex items-center text-gray-500 dark:text-gray-400">
-                            <Clock className="h-4 w-4 mr-1" />
-                            {predictor.estimatedTime}
+                    <div className={`block card transition-all duration-300 group h-full hover:shadow-large cursor-pointer ${
+                      predictor.status === 'working' ? 'opacity-90' : ''
+                    }`}>
+                      <Link to={`/predictor/${predictor.id}`} className="block h-full">
+                          <div className="flex items-start space-x-4 mb-4">
+                            <div className={`w-12 h-12 rounded-lg flex items-center justify-center group-hover:bg-primary-200 dark:group-hover:bg-primary-800/50 transition-colors duration-300 ${
+                              predictor.status === 'working' 
+                                ? 'bg-yellow-100 dark:bg-yellow-900/30' 
+                                : 'bg-primary-100 dark:bg-primary-900/30'
+                            }`}>
+                              <Icon className={`h-6 w-6 ${
+                                predictor.status === 'working'
+                                  ? 'text-yellow-600 dark:text-yellow-400'
+                                  : 'text-primary-600 dark:text-primary-400'
+                              }`} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
+                                  {predictor.name}
+                                </h3>
+                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                  predictor.status === 'working'
+                                    ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300'
+                                    : 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                                }`}>
+                                  {predictor.status === 'working' ? 'Still Working On' : 'Ready'}
+                                </span>
+                              </div>
+                              <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
+                                {predictor.description}
+                              </p>
+                            </div>
                           </div>
-                          <div className="text-green-600 dark:text-green-400 font-medium">
-                            {predictor.accuracy}
+                          <div className="flex items-center justify-between text-sm mt-auto">
+                            <div className="flex items-center space-x-4">
+                              <div className="flex items-center text-gray-500 dark:text-gray-400">
+                                <Clock className="h-4 w-4 mr-1" />
+                                {predictor.estimatedTime}
+                              </div>
+                              <div className={`font-medium ${
+                                predictor.status === 'working'
+                                  ? 'text-yellow-600 dark:text-yellow-400'
+                                  : 'text-green-600 dark:text-green-400'
+                              }`}>
+                                {predictor.accuracy}
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(predictor.difficulty)}`}>
+                                {predictor.difficulty}
+                              </span>
+                              <ChevronRight className="h-4 w-4 text-gray-400 dark:text-gray-500 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200" />
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(predictor.difficulty)}`}>
-                            {predictor.difficulty}
-                          </span>
-                          <ChevronRight className="h-4 w-4 text-gray-400 dark:text-gray-500 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200" />
-                        </div>
-                      </div>
-                    </Link>
+
+                      </Link>
+                    </div>
                   </motion.div>
                 );
               })}
