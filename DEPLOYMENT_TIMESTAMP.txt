@@ -1,0 +1,2 @@
+Deployment forced at: 2024-12-19 - Ensuring complete GitHub Pages synchronization
+This file forces a fresh build to guarantee GitHub matches local environment exactly.
