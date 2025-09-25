@@ -627,6 +627,152 @@ const PredictorDetail: React.FC = () => {
         { name: 'shortness_of_breath', label: 'Shortness of Breath', type: 'select', required: true, options: ['No', 'Yes'] },
         { name: 'cold_hands_feet', label: 'Cold Hands and Feet', type: 'select', required: true, options: ['No', 'Yes'] }
       ]
+    },
+    sepsis: {
+      id: 'sepsis',
+      name: 'Sepsis Predictor',
+      description: 'Early sepsis detection in hospital settings - a life-saving diagnostic tool.',
+      category: 'Health Assessment',
+      icon: Activity,
+      difficulty: 'Advanced',
+      estimatedTime: '3-5 min',
+      accuracy: '96%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'temperature', label: 'Body Temperature', type: 'number', required: true, min: 95, max: 110, step: 0.1, unit: '°F' },
+        { name: 'heart_rate', label: 'Heart Rate', type: 'number', required: true, min: 40, max: 200, unit: 'bpm' },
+        { name: 'respiratory_rate', label: 'Respiratory Rate', type: 'number', required: true, min: 10, max: 40, unit: '/min' },
+        { name: 'white_blood_cells', label: 'White Blood Cell Count', type: 'number', required: true, min: 1000, max: 50000, unit: '/μL' },
+        { name: 'blood_pressure', label: 'Systolic Blood Pressure', type: 'number', required: true, min: 60, max: 200, unit: 'mmHg' }
+      ]
+    },
+    stroke_risk: {
+      id: 'stroke_risk',
+      name: 'Stroke Risk Predictor',
+      description: 'Analyze blood pressure, cholesterol, lifestyle, and family history to assess stroke risk.',
+      category: 'Health Assessment',
+      icon: Brain,
+      difficulty: 'Medium',
+      estimatedTime: '6-8 min',
+      accuracy: '92%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'hypertension', label: 'Hypertension', type: 'select', required: true, options: ['No', 'Yes'] },
+        { name: 'heart_disease', label: 'Heart Disease', type: 'select', required: true, options: ['No', 'Yes'] },
+        { name: 'avg_glucose_level', label: 'Average Glucose Level', type: 'number', required: true, min: 50, max: 300, unit: 'mg/dL' },
+        { name: 'bmi', label: 'Body Mass Index', type: 'number', required: true, min: 15, max: 50, step: 0.1, unit: 'kg/m²' },
+        { name: 'smoking_status', label: 'Smoking Status', type: 'select', required: true, options: ['Never smoked', 'Formerly smoked', 'Currently smokes'] }
+      ]
+    },
+    obesity_risk: {
+      id: 'obesity_risk',
+      name: 'Obesity & BMI Risk Predictor',
+      description: 'Assess long-term obesity complications and metabolic health risks.',
+      category: 'Health Assessment',
+      icon: TrendingUp,
+      difficulty: 'Easy',
+      estimatedTime: '3-5 min',
+      accuracy: '87%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'height', label: 'Height', type: 'number', required: true, min: 100, max: 250, unit: 'cm' },
+        { name: 'weight', label: 'Weight', type: 'number', required: true, min: 30, max: 300, unit: 'kg' },
+        { name: 'physical_activity', label: 'Physical Activity Level', type: 'select', required: true, options: ['Low', 'Moderate', 'High'] },
+        { name: 'family_history_obesity', label: 'Family History of Obesity', type: 'select', required: true, options: ['No', 'Yes'] }
+      ]
+    },
+    hypertension: {
+      id: 'hypertension',
+      name: 'Hypertension Predictor',
+      description: 'Evaluate lifestyle and genetic risk factors for high blood pressure development.',
+      category: 'Health Assessment',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '4-6 min',
+      accuracy: '89%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'systolic_bp', label: 'Systolic Blood Pressure', type: 'number', required: true, min: 80, max: 200, unit: 'mmHg' },
+        { name: 'diastolic_bp', label: 'Diastolic Blood Pressure', type: 'number', required: true, min: 40, max: 120, unit: 'mmHg' },
+        { name: 'bmi', label: 'Body Mass Index', type: 'number', required: true, min: 15, max: 50, step: 0.1, unit: 'kg/m²' },
+        { name: 'sodium_intake', label: 'Daily Sodium Intake', type: 'number', required: true, min: 500, max: 5000, unit: 'mg' },
+        { name: 'family_history_hypertension', label: 'Family History of Hypertension', type: 'select', required: true, options: ['No', 'Yes'] }
+      ]
+    },
+    cholesterol_risk: {
+      id: 'cholesterol_risk',
+      name: 'Cholesterol Risk Predictor',
+      description: 'Assess cardiovascular risk based on cholesterol levels and lipid profile.',
+      category: 'Health Assessment',
+      icon: Heart,
+      difficulty: 'Medium',
+      estimatedTime: '4-6 min',
+      accuracy: '88%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'total_cholesterol', label: 'Total Cholesterol', type: 'number', required: true, min: 100, max: 400, unit: 'mg/dL' },
+        { name: 'hdl_cholesterol', label: 'HDL Cholesterol', type: 'number', required: true, min: 20, max: 100, unit: 'mg/dL' },
+        { name: 'ldl_cholesterol', label: 'LDL Cholesterol', type: 'number', required: true, min: 50, max: 300, unit: 'mg/dL' },
+        { name: 'triglycerides', label: 'Triglycerides', type: 'number', required: true, min: 50, max: 500, unit: 'mg/dL' }
+      ]
+    },
+    mental_health: {
+      id: 'mental_health',
+      name: 'Mental Health Risk Predictor',
+      description: 'Assess depression, anxiety, and stress levels using validated screening tools.',
+      category: 'Health Assessment',
+      icon: Brain,
+      difficulty: 'Medium',
+      estimatedTime: '6-8 min',
+      accuracy: '85%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'stress_level', label: 'Stress Level (1-10)', type: 'number', required: true, min: 1, max: 10 },
+        { name: 'sleep_hours', label: 'Average Sleep Hours', type: 'number', required: true, min: 2, max: 12, step: 0.5, unit: 'hours' },
+        { name: 'social_support', label: 'Social Support Level', type: 'select', required: true, options: ['Low', 'Moderate', 'High'] },
+        { name: 'exercise_frequency', label: 'Exercise Frequency', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Daily'] }
+      ]
+    },
+    sleep_apnea: {
+      id: 'sleep_apnea',
+      name: 'Sleep Apnea Risk Predictor',
+      description: 'Identify sleep disorders and breathing interruptions during sleep.',
+      category: 'Health Assessment',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '5-7 min',
+      accuracy: '87%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'bmi', label: 'Body Mass Index', type: 'number', required: true, min: 15, max: 50, step: 0.1, unit: 'kg/m²' },
+        { name: 'neck_circumference', label: 'Neck Circumference', type: 'number', required: true, min: 25, max: 60, unit: 'cm' },
+        { name: 'snoring_frequency', label: 'Snoring Frequency', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'] },
+        { name: 'daytime_sleepiness', label: 'Daytime Sleepiness', type: 'select', required: true, options: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always'] }
+      ]
+    },
+    covid_risk: {
+      id: 'covid_risk',
+      name: 'COVID-19 Risk Predictor',
+      description: 'Assess COVID-19 severity risk based on health conditions and demographics.',
+      category: 'Health Assessment',
+      icon: Shield,
+      difficulty: 'Easy',
+      estimatedTime: '3-5 min',
+      accuracy: '83%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'chronic_conditions', label: 'Number of Chronic Conditions', type: 'number', required: true, min: 0, max: 10 },
+        { name: 'vaccination_status', label: 'Vaccination Status', type: 'select', required: true, options: ['Unvaccinated', 'Partially Vaccinated', 'Fully Vaccinated', 'Boosted'] },
+        { name: 'smoking_status', label: 'Smoking Status', type: 'select', required: true, options: ['Never', 'Former', 'Current'] }
+      ]
     }
   }), []);
 
