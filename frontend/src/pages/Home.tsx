@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Heart, Brain, Activity, Shield, Zap, Users, TrendingUp, CheckCircle } from 'lucide-react';
+import { ArrowRight, Heart, Brain, Activity, Lock, Zap, Users, TrendingUp, CheckCircle } from 'lucide-react';
 
 const Home: React.FC = () => {
   const stats = [
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
       description: 'Holistic health scoring based on daily habits and lifestyle choices'
     },
     {
-      icon: Shield,
+      icon: Lock,
       title: 'Disease Prevention',
       description: 'Proactive health monitoring to prevent chronic conditions'
     }

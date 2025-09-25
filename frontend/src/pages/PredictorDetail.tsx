@@ -762,7 +762,7 @@ const PredictorDetail: React.FC = () => {
       name: 'COVID-19 Risk Predictor',
       description: 'Assess COVID-19 severity risk based on health conditions and demographics.',
       category: 'Health Assessment',
-      icon: Shield,
+      icon: Activity,
       difficulty: 'Easy',
       estimatedTime: '3-5 min',
       accuracy: '83%',

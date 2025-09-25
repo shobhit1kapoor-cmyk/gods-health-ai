@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import {
   Heart,
   Brain,
-  Shield,
+  Lock,
   Users,
   Award,
   Target,
@@ -25,7 +25,7 @@ const About: React.FC = () => {
       description: 'Our platform uses state-of-the-art machine learning algorithms trained on vast medical datasets to provide accurate health predictions.',
     },
     {
-      icon: Shield,
+      icon: Lock,
       title: 'Privacy & Security',
       description: 'Your health data is encrypted and secure. We follow strict privacy protocols and never share your personal information.',
     },
