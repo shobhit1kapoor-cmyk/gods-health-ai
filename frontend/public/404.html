@@ -2,39 +2,30 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Gods Health AI</title>
+    <title>Gods Health AI - Page Not Found</title>
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      // This script takes the current url and converts the path and query
-      // string into just a query string, and then redirects the browser
-      // to the new url with only a query string and hash fragment,
-      // e.g. https://www.foo.tld/one/two?a=b&c=d#qwe, becomes
-      // https://www.foo.tld/?/one/two&a=b~and~c=d#qwe
-      // Note: this 404.html file must be at least 512 bytes for it to work
-      // with Internet Explorer (it is currently > 512 bytes)
-
-      // If you're creating a Project Pages site and NOT using a custom domain,
-      // then set pathSegmentsToKeep to 1 (enterprise users may need to set it to > 1).
-      // This way the code will only replace the route part of the path, and not
-      // the real directory in which the app resides, for example:
-      // https://username.github.io/repo-name/one/two?a=b&c=d#qwe becomes
-      // https://username.github.io/repo-name/?/one/two&a=b~and~c=d#qwe
-      // Otherwise, leave pathSegmentsToKeep as 0.
-      var pathSegmentsToKeep = 1;
-
+      // Redirect to home page with HashRouter
+      // For HashRouter, we just redirect to the base URL and let React handle routing
       var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-
+      var baseUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + '/gods-health-ai/';
+      
+      // Extract the path after /gods-health-ai/ and convert it to hash routing
+      var currentPath = l.pathname.replace('/gods-health-ai/', '');
+      if (currentPath && currentPath !== '/') {
+        // Redirect to hash-based routing
+        window.location.replace(baseUrl + '#/' + currentPath);
+      } else {
+        // Just redirect to home
+        window.location.replace(baseUrl);
+      }
     </script>
   </head>
   <body>
+    <p>Redirecting to Gods Health AI...</p>
+    <!-- This comment ensures the file is over 512 bytes for IE compatibility -->
+    <!-- GitHub Pages requires 404.html files to be at least 512 bytes -->
+    <!-- Adding extra content to meet the minimum size requirement -->
+    <!-- Gods Health AI - Advanced AI-powered health prediction platform -->
+    <!-- Comprehensive health analysis and risk assessment tools -->
   </body>
 </html>
