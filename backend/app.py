@@ -43,7 +43,33 @@ allowed_origins = [
     "https://shobhit1kapoor-cmyk.github.io",
     "https://gods-health-ai.netlify.app"
 ]
-CORS(app, origins=allowed_origins)
+
+# Enhanced CORS configuration to handle private network access
+CORS(app, 
+     origins=allowed_origins,
+     allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
+     supports_credentials=True)
+
+# Add custom headers for private network access
+@app.after_request
+def after_request(response):
+    # Allow private network access for GitHub Pages
+    response.headers.add('Access-Control-Allow-Private-Network', 'true')
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
+# Handle preflight requests
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        response = jsonify({})
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add('Access-Control-Allow-Headers', "*")
+        response.headers.add('Access-Control-Allow-Methods', "*")
+        response.headers.add('Access-Control-Allow-Private-Network', 'true')
+        return response
 
 # Initialize predictors
 predictors = {

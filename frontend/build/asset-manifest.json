@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/gods-health-ai/static/css/main.fb224ee4.css",
-    "main.js": "/gods-health-ai/static/js/main.7167e59c.js",
+    "main.js": "/gods-health-ai/static/js/main.6f6b6193.js",
     "index.html": "/gods-health-ai/index.html",
     "main.fb224ee4.css.map": "/gods-health-ai/static/css/main.fb224ee4.css.map",
-    "main.7167e59c.js.map": "/gods-health-ai/static/js/main.7167e59c.js.map"
+    "main.6f6b6193.js.map": "/gods-health-ai/static/js/main.6f6b6193.js.map"
   },
   "entrypoints": [
     "static/css/main.fb224ee4.css",
-    "static/js/main.7167e59c.js"
+    "static/js/main.6f6b6193.js"
   ]
 }
