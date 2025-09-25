@@ -566,7 +566,69 @@ const PredictorDetail: React.FC = () => {
   };
 
 
-  const predictorData = useMemo(() => ({}), []);
+  const predictorData = useMemo(() => ({
+    heart_disease: {
+      id: 'heart_disease',
+      name: 'Heart Disease Predictor',
+      description: 'Predict cardiovascular disease risk using key health indicators',
+      category: 'Health Assessment',
+      icon: Heart,
+      difficulty: 'Medium',
+      estimatedTime: '5-10 min',
+      accuracy: '85%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'sex', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'cholesterol', label: 'Total Cholesterol', type: 'number', required: true, min: 100, max: 400, unit: 'mg/dL' },
+        { name: 'systolic_bp', label: 'Systolic Blood Pressure', type: 'number', required: true, min: 80, max: 200, unit: 'mmHg' },
+        { name: 'smoking', label: 'Current Smoking Status', type: 'select', required: true, options: ['No', 'Yes'] },
+        { name: 'diabetes', label: 'Diabetes Diagnosis', type: 'select', required: true, options: ['No', 'Yes'] }
+      ]
+    },
+    diabetes: {
+      id: 'diabetes',
+      name: 'Diabetes Risk Predictor',
+      description: 'Predict Type 2 diabetes risk using glucose levels, BMI, and lifestyle factors',
+      category: 'Health Assessment',
+      icon: Activity,
+      difficulty: 'Medium',
+      estimatedTime: '5-7 min',
+      accuracy: '87%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'bmi', label: 'Body Mass Index', type: 'number', required: true, min: 15, max: 50, step: 0.1, unit: 'kg/m²' },
+        { name: 'glucose', label: 'Glucose Level', type: 'number', required: true, min: 70, max: 300, unit: 'mg/dL' },
+        { name: 'blood_pressure', label: 'Blood Pressure', type: 'number', required: true, min: 80, max: 200, unit: 'mmHg' },
+        { name: 'skin_thickness', label: 'Skin Thickness', type: 'number', required: true, min: 0, max: 100, unit: 'mm' },
+        { name: 'insulin', label: 'Insulin Level', type: 'number', required: true, min: 0, max: 300, unit: 'μU/mL' },
+        { name: 'diabetes_pedigree_function', label: 'Diabetes Pedigree Function', type: 'number', required: true, min: 0, max: 2, step: 0.01 },
+        { name: 'pregnancies', label: 'Number of Pregnancies', type: 'number', required: true, min: 0, max: 20 }
+      ]
+    },
+    anemia: {
+      id: 'anemia',
+      name: 'Anemia Predictor',
+      description: 'Detect various types of anemia using comprehensive blood test analysis',
+      category: 'Health Assessment',
+      icon: Stethoscope,
+      difficulty: 'Easy',
+      estimatedTime: '3-5 min',
+      accuracy: '92%',
+      fields: [
+        { name: 'age', label: 'Age', type: 'number', required: true, min: 18, max: 120, unit: 'years' },
+        { name: 'gender', label: 'Gender', type: 'select', required: true, options: ['Female', 'Male'] },
+        { name: 'hemoglobin', label: 'Hemoglobin Level', type: 'number', required: true, min: 5, max: 20, step: 0.1, unit: 'g/dL' },
+        { name: 'hematocrit', label: 'Hematocrit', type: 'number', required: true, min: 15, max: 60, step: 0.1, unit: '%' },
+        { name: 'mcv', label: 'Mean Corpuscular Volume', type: 'number', required: true, min: 60, max: 120, unit: 'fL' },
+        { name: 'mch', label: 'Mean Corpuscular Hemoglobin', type: 'number', required: true, min: 20, max: 40, step: 0.1, unit: 'pg' },
+        { name: 'mchc', label: 'Mean Corpuscular Hemoglobin Concentration', type: 'number', required: true, min: 25, max: 40, step: 0.1, unit: 'g/dL' },
+        { name: 'fatigue', label: 'Fatigue Level', type: 'number', required: true, min: 0, max: 10 },
+        { name: 'shortness_of_breath', label: 'Shortness of Breath', type: 'select', required: true, options: ['No', 'Yes'] },
+        { name: 'cold_hands_feet', label: 'Cold Hands and Feet', type: 'select', required: true, options: ['No', 'Yes'] }
+      ]
+    }
+  }), []);
 
 
 
