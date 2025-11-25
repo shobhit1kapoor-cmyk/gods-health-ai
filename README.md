@@ -88,9 +88,6 @@ Gods Health AI/
 
 ## 🌐 Live Demo & Deployment
 
-### 🚀 GitHub Pages (Static Demo)
-Experience the frontend interface with mock data:
-**[https://shobhit1kapoor-cmyk.github.io/gods-health-ai/](https://shobhit1kapoor-cmyk.github.io/gods-health-ai/)**
 
 *Note: This is a static demo using mock prediction data. For full functionality with real AI predictions, a backend deployment is required.*
 
